@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 
+export const dynamic = 'force-static';
 export async function GET() {
   const baseUrl = 'https://turbopush.com';
   const currentDate = new Date().toISOString();

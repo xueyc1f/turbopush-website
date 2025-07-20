@@ -2,6 +2,7 @@ import type { NextConfig } from 'next';
 import path from 'path';
 
 const nextConfig: NextConfig = {
+  output: 'export',
   images: {
     remotePatterns: [],
     formats: ['image/webp', 'image/avif'],
@@ -9,6 +10,7 @@ const nextConfig: NextConfig = {
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     minimumCacheTTL: 31536000, // 1 year
     dangerouslyAllowSVG: true,
+    unoptimized: true,
     contentDispositionType: 'attachment',
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
@@ -40,7 +42,7 @@ const nextConfig: NextConfig = {
   // Enable compression
   compress: true,
   // Optimize static generation
-  trailingSlash: false,
+  trailingSlash: true,
   // Webpack optimizations
   webpack: (config, { dev, isServer }) => {
     // Optimize bundle splitting
