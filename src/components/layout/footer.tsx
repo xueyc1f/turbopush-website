@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Link from 'next/link';
-import { Github, X, Mail } from 'lucide-react';
+import { Github, Mail } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Container } from '@/components/ui/container';
 import { Typography } from '@/components/ui/typography';
@@ -15,9 +15,9 @@ interface FooterProps {
 // 删除了复杂的 footerSections，简化为左侧布局
 
 const socialLinks = [
-  { icon: Github, href: 'https://github.com/turbopush', label: 'GitHub' },
-  { icon: X, href: 'https://twitter.com/turbopush', label: 'X (Twitter)' },
-  { icon: Mail, href: 'mailto:contact@turbopush.com', label: 'Email' },
+  { icon: Github, href: 'https://github.com/xueyc1f', label: 'GitHub' },
+  // { icon: X, href: 'https://twitter.com/turbopush', label: 'X (Twitter)' },
+  { icon: Mail, href: 'mailto:kube.call@gmail.com', label: 'Email' },
 ];
 
 function Footer({ variant = 'default', className }: FooterProps) {

@@ -335,8 +335,6 @@ export function addCriticalResourceHints(): void {
       href: 'https://fonts.gstatic.com',
       crossOrigin: 'anonymous',
     },
-    { rel: 'dns-prefetch', href: 'https://images.unsplash.com' },
-    { rel: 'dns-prefetch', href: 'https://api.turbopush.com' },
   ];
 
   hints.forEach(({ rel, href, crossOrigin }) => {

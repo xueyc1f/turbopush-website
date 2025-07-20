@@ -151,10 +151,7 @@ function generateStructuredData(
           contactType: 'customer service',
           email: 'contact@turbopush.com',
         },
-        sameAs: [
-          'https://twitter.com/turbopush',
-          'https://github.com/turbopush',
-        ],
+        sameAs: ['https://github.com/xueyc1f'],
       };
 
     default:

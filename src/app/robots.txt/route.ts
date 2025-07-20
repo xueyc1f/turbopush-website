@@ -10,7 +10,6 @@ Allow: /
 Allow: /
 
 # 静态资源
-Allow: /screenshots/
 Allow: /images/
 Allow: /icons/
 Allow: /_next/static/
@@ -30,7 +29,7 @@ Disallow: /500
 Sitemap: ${baseUrl}/sitemap.xml
 
 # 爬取延迟（毫秒）
-Crawl-delay: 1
+Crawl-delay: 5000
 
 # 特定搜索引擎规则
 User-agent: Googlebot

@@ -14,8 +14,6 @@ import {
   FAQStructuredData,
   SoftwareReviewStructuredData,
   HowToStructuredData,
-  VideoStructuredData,
-  LocalBusinessStructuredData,
 } from '@/components/seo/structured-data';
 
 export const metadata: Metadata = generateMetadata({
@@ -39,8 +37,6 @@ export default function Home() {
       <FAQStructuredData />
       <SoftwareReviewStructuredData />
       <HowToStructuredData />
-      <VideoStructuredData />
-      <LocalBusinessStructuredData />
 
       <PageLayout>
         <HeroSection

@@ -31,8 +31,8 @@ export const seoConfig = {
   // Social media handles
   social: {
     twitter: '@turbopush',
-    github: 'https://github.com/turbopush',
-    email: 'contact@turbopush.com',
+    github: 'https://github.com/xueyc1f',
+    email: 'kube.call@gmail.com',
   },
 
   // Open Graph defaults
@@ -55,11 +55,10 @@ export const seoConfig = {
     description: 'TurboPush 是一个强大的多平台内容发布和管理工具',
     foundingDate: '2024',
     contactPoint: {
-      telephone: '+86-400-123-4567',
       contactType: 'customer service',
-      email: 'support@turbopush.com',
+      email: 'kube.call@gmail.com',
     },
-    sameAs: ['https://twitter.com/turbopush', 'https://github.com/turbopush'],
+    sameAs: ['https://github.com/xueyc1f'],
   },
 
   // Application specific data
@@ -67,12 +66,10 @@ export const seoConfig = {
     name: 'TurboPush',
     category: 'BusinessApplication',
     operatingSystem: 'Windows, macOS, Linux',
-    version: '1.0.0',
-    releaseNotes: 'https://turbopush.com/changelog',
-    downloadUrl: 'https://turbopush.com/download',
-    screenshot: 'https://turbopush.com/screenshots/main-interface.jpg',
+    version: '0.0.1',
+    downloadUrl: 'https://turbopush.com/#download',
     price: '0',
-    priceCurrency: 'USD',
+    priceCurrency: 'CNY',
   },
 
   // Single-page website configuration

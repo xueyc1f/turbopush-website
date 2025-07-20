@@ -75,7 +75,12 @@ export function generateMetadata(config: SEOConfig): Metadata {
 }
 
 export interface StructuredDataConfig {
-  type: 'WebSite' | 'Organization' | 'SoftwareApplication' | 'Product' | 'Article';
+  type:
+    | 'WebSite'
+    | 'Organization'
+    | 'SoftwareApplication'
+    | 'Product'
+    | 'Article';
   name?: string;
   description?: string;
   url?: string;
@@ -125,7 +130,6 @@ export function generateStructuredData(
         contactPoint: {
           '@type': 'ContactPoint',
           contactType: seoConfig.organization.contactPoint.contactType,
-          telephone: seoConfig.organization.contactPoint.telephone,
           email: seoConfig.organization.contactPoint.email,
         },
       };
@@ -136,8 +140,10 @@ export function generateStructuredData(
         name: config.name || seoConfig.application.name,
         description: config.description || seoConfig.defaultDescription,
         url: config.url || seoConfig.baseUrl,
-        applicationCategory: config.applicationCategory || seoConfig.application.category,
-        operatingSystem: config.operatingSystem || seoConfig.application.operatingSystem,
+        applicationCategory:
+          config.applicationCategory || seoConfig.application.category,
+        operatingSystem:
+          config.operatingSystem || seoConfig.application.operatingSystem,
         offers: config.offers || {
           '@type': 'Offer',
           price: seoConfig.application.price,
@@ -149,9 +155,7 @@ export function generateStructuredData(
           name: seoConfig.author,
         },
         downloadUrl: seoConfig.application.downloadUrl,
-        screenshot: seoConfig.application.screenshot,
         softwareVersion: seoConfig.application.version,
-        releaseNotes: seoConfig.application.releaseNotes,
       };
 
     case 'Product':
@@ -159,7 +163,7 @@ export function generateStructuredData(
         ...commonData,
         name: config.name || seoConfig.application.name,
         description: config.description || seoConfig.defaultDescription,
-        image: config.logo || seoConfig.application.screenshot,
+        image: config.logo,
         brand: {
           '@type': 'Brand',
           name: seoConfig.siteName,

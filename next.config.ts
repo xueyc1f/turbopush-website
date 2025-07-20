@@ -1,15 +1,9 @@
 import type { NextConfig } from 'next';
+import path from 'path';
 
 const nextConfig: NextConfig = {
   images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'images.unsplash.com',
-        port: '',
-        pathname: '/**',
-      },
-    ],
+    remotePatterns: [],
     formats: ['image/webp', 'image/avif'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
@@ -20,9 +14,13 @@ const nextConfig: NextConfig = {
   },
   // Enable experimental features for better performance
   experimental: {
-    optimizePackageImports: ['lucide-react', '@radix-ui/react-dropdown-menu', 'framer-motion'],
+    optimizePackageImports: [
+      'lucide-react',
+      '@radix-ui/react-dropdown-menu',
+      'framer-motion',
+    ],
   },
-  
+
   // Turbopack configuration (moved from experimental)
   turbopack: {
     rules: {
@@ -32,7 +30,7 @@ const nextConfig: NextConfig = {
       },
     },
   },
-  
+
   // Server external packages (moved from experimental)
   serverExternalPackages: ['sharp'],
   // Optimize bundle
@@ -67,14 +65,16 @@ const nextConfig: NextConfig = {
     }
 
     // Optimize module resolution
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      '@': require('path').resolve(__dirname, 'src'),
-    };
+    if (config.resolve) {
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        '@': path.resolve(process.cwd(), 'src'),
+      };
+    }
 
     return config;
   },
-  
+
   // Enable PWA-like features and performance headers
   headers: async () => [
     {
