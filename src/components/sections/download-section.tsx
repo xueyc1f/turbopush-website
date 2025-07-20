@@ -29,7 +29,7 @@ export function DownloadSection({ compact = false }: DownloadSectionProps) {
               variant="large"
               className="text-gray-600 mb-6 sm:mb-8 max-w-2xl mx-auto text-base sm:text-lg"
             >
-              免费下载，无需注册，立即体验多平台内容发布的便捷
+              免费下载，立即体验多平台内容发布的便捷
             </Typography>
             <DownloadButton
               variant="default"
@@ -123,7 +123,7 @@ export function DownloadSection({ compact = false }: DownloadSectionProps) {
               variant="muted"
               className="text-gray-600 text-sm sm:text-base"
             >
-              数据本地存储，隐私保护，通过多项安全认证
+              数据本地加密存储，隐私保护，通过多项安全认证
             </Typography>
           </div>
 

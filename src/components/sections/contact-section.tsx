@@ -107,7 +107,7 @@ export function ContactSection() {
         </div>
 
         {/* Additional Info */}
-        <div className="text-center mt-12 sm:mt-16">
+        {/* <div className="text-center mt-12 sm:mt-16">
           <Card className="max-w-2xl mx-auto">
             <CardContent className="p-6 sm:p-8">
               <Typography variant="h3" className="text-lg font-semibold mb-3">
@@ -119,7 +119,7 @@ export function ContactSection() {
               </Typography>
             </CardContent>
           </Card>
-        </div>
+        </div> */}
       </Container>
     </section>
   );

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import {
   Download,
   FolderOpen,
@@ -388,11 +389,11 @@ export function InstallationGuide() {
               仍然遇到问题？我们随时为您提供帮助
             </Typography>
             <div className="flex justify-center space-x-4">
-              <Button variant="outline" size="sm">
+              {/* <Button variant="outline" size="sm">
                 查看帮助文档
-              </Button>
+              </Button> */}
               <Button variant="outline" size="sm">
-                联系技术支持
+                <Link href="#contact">联系技术支持</Link>
               </Button>
             </div>
           </div>

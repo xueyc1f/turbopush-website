@@ -9,7 +9,14 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Edit3, Share2, Calendar, BarChart3, Users, Zap } from 'lucide-react';
+import {
+  Edit3,
+  Share2,
+  Calendar,
+  BarChart3,
+  NotepadText,
+  Bell,
+} from 'lucide-react';
 
 interface Feature {
   icon: React.ComponentType<{ className?: string }>;
@@ -30,9 +37,9 @@ const defaultFeatures: Feature[] = [
     icon: Edit3,
     title: '智能内容创作',
     description:
-      '强大的富文本编辑器，支持图片、视频、链接等多媒体内容，AI 辅助优化内容质量，让创作更轻松。',
+      '内置WeChat Markdown Editor编辑器，支持本地图库，无需配置图床，让创作更轻松。',
     highlight: true,
-    badge: '核心功能',
+    badge: '开源集成',
   },
   {
     icon: Share2,
@@ -40,34 +47,35 @@ const defaultFeatures: Feature[] = [
     description:
       '同时发布到微博、微信、抖音、小红书等多个社交媒体平台，节省时间，扩大影响力。',
     highlight: true,
-    badge: '热门',
+    badge: '核心功能',
   },
   {
     icon: Calendar,
-    title: '智能定时发布',
+    title: '平台设置模板',
     description:
-      '基于数据分析的最佳发布时间推荐，支持批量定时发布，让您的内容在最佳时机触达用户。',
-    highlight: false,
+      '支持将常用平台设置保存为模板，发布时基于模板快速完成平台配置，真正做到一键发布。',
+    highlight: true,
+    badge: '效率神器',
   },
   {
     icon: BarChart3,
     title: '数据分析洞察',
     description:
-      '详细的内容表现分析，包括阅读量、互动率、用户画像等，帮助您优化内容策略。',
+      '详细的内容表现分析，包括阅读/播放量、评论/收藏/分享等，帮助您优化内容策略。',
     highlight: false,
   },
   {
-    icon: Users,
-    title: '团队协作管理',
+    icon: NotepadText,
+    title: '发文样式优化',
     description:
-      '支持多人协作，权限管理，内容审核流程，让团队内容创作更高效有序。',
+      '文章针对各平台深度优化，Mermaid 流程图，LaTeX 公式，完美支持所有平台。',
     highlight: false,
   },
   {
-    icon: Zap,
-    title: '自动化工作流',
+    icon: Bell,
+    title: '最近动态提醒',
     description:
-      '智能标签分类，自动回复，内容模板，让重复性工作自动化，专注创意本身。',
+      '账号登录失效，任务执行情况，数据统计结果，自动提醒，您只需专注创意本身。',
     highlight: false,
   },
 ];
