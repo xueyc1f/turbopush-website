@@ -1,15 +1,15 @@
 'use client';
 
 import { useState } from 'react';
-import { 
-  Download, 
-  FolderOpen, 
-  Play, 
-  CheckCircle, 
-  AlertCircle, 
+import {
+  Download,
+  FolderOpen,
+  Play,
+  CheckCircle,
+  AlertCircle,
   Monitor,
   Settings,
-  Shield
+  Shield,
 } from 'lucide-react';
 import { Container } from '@/components/ui/container';
 import { Typography } from '@/components/ui/typography';
@@ -34,9 +34,9 @@ const windowsSteps: InstallationStep[] = [
       '点击上方的"下载 TurboPush"按钮',
       '选择 Windows 版本（.exe 文件）',
       '等待下载完成（约 45MB）',
-      '确认文件完整性'
+      '确认文件完整性',
     ],
-    icon: Download
+    icon: Download,
   },
   {
     step: 2,
@@ -46,10 +46,10 @@ const windowsSteps: InstallationStep[] = [
       '右键点击下载的 .exe 文件',
       '选择"以管理员身份运行"',
       '在 UAC 提示中点击"是"',
-      '等待安装程序启动'
+      '等待安装程序启动',
     ],
     icon: Shield,
-    warning: '需要管理员权限来安装系统级组件'
+    warning: '需要管理员权限来安装系统级组件',
   },
   {
     step: 3,
@@ -59,9 +59,9 @@ const windowsSteps: InstallationStep[] = [
       '阅读并接受许可协议',
       '选择安装位置（推荐默认）',
       '选择要创建的快捷方式',
-      '点击"安装"开始安装过程'
+      '点击"安装"开始安装过程',
     ],
-    icon: Settings
+    icon: Settings,
   },
   {
     step: 4,
@@ -71,10 +71,10 @@ const windowsSteps: InstallationStep[] = [
       '点击"完成"按钮',
       '从桌面快捷方式启动应用',
       '或从开始菜单找到 TurboPush',
-      '首次启动会进行初始化设置'
+      '首次启动会进行初始化设置',
     ],
-    icon: Play
-  }
+    icon: Play,
+  },
 ];
 
 const macosSteps: InstallationStep[] = [
@@ -86,9 +86,9 @@ const macosSteps: InstallationStep[] = [
       '点击上方的"下载 TurboPush"按钮',
       '选择 macOS 版本（.dmg 文件）',
       '等待下载完成（约 39MB）',
-      '在下载文件夹中找到 DMG 文件'
+      '在下载文件夹中找到 DMG 文件',
     ],
-    icon: Download
+    icon: Download,
   },
   {
     step: 2,
@@ -98,9 +98,9 @@ const macosSteps: InstallationStep[] = [
       '双击下载的 .dmg 文件',
       '等待磁盘映像挂载',
       '在 Finder 中打开挂载的磁盘',
-      '查看安装说明（如果有）'
+      '查看安装说明（如果有）',
     ],
-    icon: FolderOpen
+    icon: FolderOpen,
   },
   {
     step: 3,
@@ -110,9 +110,9 @@ const macosSteps: InstallationStep[] = [
       '将 TurboPush.app 拖拽到 Applications 文件夹',
       '等待复制过程完成',
       '弹出磁盘映像',
-      '删除下载的 DMG 文件（可选）'
+      '删除下载的 DMG 文件（可选）',
     ],
-    icon: Settings
+    icon: Settings,
   },
   {
     step: 4,
@@ -122,11 +122,11 @@ const macosSteps: InstallationStep[] = [
       '在 Applications 文件夹中找到 TurboPush',
       '双击启动应用程序',
       '在安全提示中点击"打开"',
-      '完成首次设置向导'
+      '完成首次设置向导',
     ],
     icon: Play,
-    warning: 'macOS 可能会显示安全警告，请在系统偏好设置中允许运行'
-  }
+    warning: 'macOS 可能会显示安全警告，请在系统偏好设置中允许运行',
+  },
 ];
 
 const linuxSteps: InstallationStep[] = [
@@ -138,9 +138,9 @@ const linuxSteps: InstallationStep[] = [
       '点击上方的"下载 TurboPush"按钮',
       '选择 Linux 版本（.AppImage 文件）',
       '等待下载完成（约 42MB）',
-      '保存到合适的位置'
+      '保存到合适的位置',
     ],
-    icon: Download
+    icon: Download,
   },
   {
     step: 2,
@@ -150,9 +150,9 @@ const linuxSteps: InstallationStep[] = [
       '打开终端',
       '导航到下载文件的目录',
       '运行: chmod +x TurboPush-*.AppImage',
-      '确认权限设置成功'
+      '确认权限设置成功',
     ],
-    icon: Shield
+    icon: Shield,
   },
   {
     step: 3,
@@ -162,9 +162,9 @@ const linuxSteps: InstallationStep[] = [
       '双击 AppImage 文件运行',
       '或在终端中执行: ./TurboPush-*.AppImage',
       '首次运行会提取必要文件',
-      '等待应用程序启动'
+      '等待应用程序启动',
     ],
-    icon: Play
+    icon: Play,
   },
   {
     step: 4,
@@ -174,37 +174,39 @@ const linuxSteps: InstallationStep[] = [
       '右键点击桌面',
       '创建新的启动器/快捷方式',
       '设置命令为 AppImage 文件路径',
-      '添加图标和名称'
+      '添加图标和名称',
     ],
-    icon: Settings
-  }
+    icon: Settings,
+  },
 ];
 
 const troubleshootingTips = [
   {
     issue: 'Windows Defender 阻止安装',
-    solution: '在 Windows Defender 中添加例外，或临时禁用实时保护'
+    solution: '在 Windows Defender 中添加例外，或临时禁用实时保护',
   },
   {
     issue: 'macOS 显示"无法验证开发者"',
-    solution: '在系统偏好设置 > 安全性与隐私中点击"仍要打开"'
+    solution: '在系统偏好设置 > 安全性与隐私中点击"仍要打开"',
   },
   {
     issue: 'Linux 下无法执行 AppImage',
-    solution: '确保已安装 FUSE 库：sudo apt install fuse'
+    solution: '确保已安装 FUSE 库：sudo apt install fuse',
   },
   {
     issue: '应用程序启动缓慢',
-    solution: '首次启动需要初始化，后续启动会更快'
+    solution: '首次启动需要初始化，后续启动会更快',
   },
   {
     issue: '网络连接问题',
-    solution: '检查防火墙设置，确保允许 TurboPush 访问网络'
-  }
+    solution: '检查防火墙设置，确保允许 TurboPush 访问网络',
+  },
 ];
 
 export function InstallationGuide() {
-  const [selectedPlatform, setSelectedPlatform] = useState<'windows' | 'macos' | 'linux'>('windows');
+  const [selectedPlatform, setSelectedPlatform] = useState<
+    'windows' | 'macos' | 'linux'
+  >('windows');
 
   const getStepsForPlatform = () => {
     switch (selectedPlatform) {
@@ -222,7 +224,7 @@ export function InstallationGuide() {
   const platformNames = {
     windows: 'Windows',
     macos: 'macOS',
-    linux: 'Linux'
+    linux: 'Linux',
   };
 
   return (
@@ -232,15 +234,53 @@ export function InstallationGuide() {
           <Typography variant="h2" className="mb-4">
             安装指南
           </Typography>
-          <Typography variant="large" className="text-gray-600 max-w-3xl mx-auto">
+          <Typography
+            variant="large"
+            className="text-gray-600 max-w-3xl mx-auto mb-6"
+          >
             按照以下步骤在您的设备上安装 TurboPush，整个过程只需几分钟
           </Typography>
+
+          {/* Chrome Browser Requirement */}
+          <Card className="max-w-2xl mx-auto p-6 bg-blue-50 border-blue-200">
+            <div className="flex items-start">
+              <AlertCircle className="h-5 w-5 text-blue-600 mr-3 mt-1 flex-shrink-0" />
+              <div className="text-left">
+                <Typography
+                  variant="h4"
+                  className="text-blue-900 font-semibold mb-2"
+                >
+                  重要提示：Chrome 浏览器依赖
+                </Typography>
+                <Typography
+                  variant="small"
+                  className="text-blue-800 leading-relaxed"
+                >
+                  TurboPush 的内容发布功能依赖 Chrome
+                  浏览器内核。请确保您的系统已安装
+                  <strong className="font-medium"> Google Chrome 浏览器</strong>
+                  （版本 90 或更高）。 如果未安装，请先从{' '}
+                  <a
+                    href="https://www.google.com/chrome/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline hover:text-blue-900"
+                  >
+                    chrome.google.com
+                  </a>{' '}
+                  下载安装。
+                </Typography>
+              </div>
+            </div>
+          </Card>
         </div>
 
         {/* Platform Selection */}
         <div className="flex justify-center mb-8">
           <div className="flex bg-gray-100 rounded-lg p-1">
-            {(Object.keys(platformNames) as Array<keyof typeof platformNames>).map((platform) => (
+            {(
+              Object.keys(platformNames) as Array<keyof typeof platformNames>
+            ).map((platform) => (
               <Button
                 key={platform}
                 variant={selectedPlatform === platform ? 'default' : 'ghost'}
@@ -275,7 +315,10 @@ export function InstallationGuide() {
                           {step.title}
                         </Typography>
                       </div>
-                      <Typography variant="muted" className="text-gray-600 mb-3">
+                      <Typography
+                        variant="muted"
+                        className="text-gray-600 mb-3"
+                      >
                         {step.description}
                       </Typography>
                     </div>
@@ -283,7 +326,10 @@ export function InstallationGuide() {
 
                   <ul className="space-y-2 mb-4">
                     {step.details.map((detail, index) => (
-                      <li key={index} className="flex items-start text-sm text-gray-700">
+                      <li
+                        key={index}
+                        className="flex items-start text-sm text-gray-700"
+                      >
                         <CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
                         {detail}
                       </li>
@@ -317,10 +363,16 @@ export function InstallationGuide() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {troubleshootingTips.map((tip, index) => (
-              <div key={index} className="flex items-start p-4 bg-white rounded-lg border">
+              <div
+                key={index}
+                className="flex items-start p-4 bg-white rounded-lg border"
+              >
                 <AlertCircle className="h-5 w-5 text-orange-500 mr-3 mt-0.5 flex-shrink-0" />
                 <div>
-                  <Typography variant="small" className="font-medium text-gray-900 mb-1">
+                  <Typography
+                    variant="small"
+                    className="font-medium text-gray-900 mb-1"
+                  >
                     {tip.issue}
                   </Typography>
                   <Typography variant="small" className="text-gray-600">

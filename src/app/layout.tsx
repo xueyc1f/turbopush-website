@@ -13,11 +13,13 @@ const inter = Inter({
   adjustFontFallback: true,
 });
 
+import { seoConfig } from '@/lib/seo-config';
+
 export const metadata: Metadata = generateMetadata({
-  title: 'TurboPush - 多平台内容发布管理工具',
-  description: 'TurboPush 是一个强大的多平台内容发布和管理工具，支持多个社交媒体平台，提供定时发布、内容管理、数据分析等功能，让您的内容创作更高效。',
-  keywords: ['TurboPush', '多平台发布', '内容管理', '社交媒体', '定时发布', '内容创作', '桌面应用'],
-  canonicalUrl: 'https://turbopush.com',
+  title: seoConfig.defaultTitle,
+  description: seoConfig.defaultDescription,
+  keywords: seoConfig.defaultKeywords,
+  canonicalUrl: seoConfig.baseUrl,
 });
 
 export default function RootLayout({
@@ -34,10 +36,14 @@ export default function RootLayout({
       <head>
         {/* Enhanced resource hints for performance */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
         <link rel="dns-prefetch" href="https://images.unsplash.com" />
         <link rel="dns-prefetch" href="https://api.turbopush.com" />
-        
+
         {/* Preload critical fonts */}
         <link
           rel="preload"
@@ -46,10 +52,11 @@ export default function RootLayout({
           type="font/woff2"
           crossOrigin="anonymous"
         />
-        
+
         {/* Critical CSS inlined above */}
-        <style dangerouslySetInnerHTML={{
-          __html: `
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `
             /* Critical above-the-fold styles */
             .hero-section { 
               min-height: 100vh; 
@@ -84,9 +91,10 @@ export default function RootLayout({
               transition: background-color 0.2s;
             }
             .btn-primary:hover { background: #1d4ed8; }
-          `
-        }} />
-        
+          `,
+          }}
+        />
+
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -106,15 +114,21 @@ export default function RootLayout({
           }}
         />
         <link rel="canonical" href="https://turbopush.com" />
-        <meta name="google-site-verification" content="your-google-verification-code" />
-        <meta name="baidu-site-verification" content="your-baidu-verification-code" />
-        
+        <meta
+          name="google-site-verification"
+          content="your-google-verification-code"
+        />
+        <meta
+          name="baidu-site-verification"
+          content="your-baidu-verification-code"
+        />
+
         {/* Performance and security meta tags */}
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="theme-color" content="#2563eb" />
         <meta name="color-scheme" content="light dark" />
-        
+
         {/* PWA manifest */}
         <link rel="manifest" href="/manifest.json" />
         <meta name="mobile-web-app-capable" content="yes" />
@@ -123,9 +137,7 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-title" content="TurboPush" />
       </head>
       <body className={`${inter.variable} font-sans antialiased`}>
-        <ServiceWorkerProvider>
-          {children}
-        </ServiceWorkerProvider>
+        <ServiceWorkerProvider>{children}</ServiceWorkerProvider>
       </body>
     </html>
   );

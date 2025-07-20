@@ -18,7 +18,7 @@ export async function registerServiceWorker(config: ServiceWorkerConfig = {}) {
   try {
     const registration = await navigator.serviceWorker.register('/sw.js', {
       scope: '/',
-      updateViaCache: 'none'
+      updateViaCache: 'none',
     });
 
     console.log('Service Worker registered successfully:', registration);
@@ -110,10 +110,9 @@ export async function getServiceWorkerVersion(): Promise<string | null> {
       resolve(event.data.version || null);
     };
 
-    navigator.serviceWorker.controller?.postMessage(
-      { type: 'GET_VERSION' },
-      [messageChannel.port2]
-    );
+    navigator.serviceWorker.controller?.postMessage({ type: 'GET_VERSION' }, [
+      messageChannel.port2,
+    ]);
 
     // Timeout after 5 seconds
     setTimeout(() => resolve(null), 5000);
@@ -123,10 +122,11 @@ export async function getServiceWorkerVersion(): Promise<string | null> {
 // Check if app is running in standalone mode (PWA)
 export function isStandalone(): boolean {
   if (typeof window === 'undefined') return false;
-  
+
   return (
     window.matchMedia('(display-mode: standalone)').matches ||
-    (window.navigator as Navigator & { standalone?: boolean }).standalone === true
+    (window.navigator as Navigator & { standalone?: boolean }).standalone ===
+      true
   );
 }
 
@@ -167,11 +167,8 @@ export function addNetworkListeners(
 export function preloadCriticalResources() {
   if (typeof window === 'undefined') return;
 
-  const criticalResources = [
-    '/',
-    '/features',
-    '/download'
-  ];
+  // For single-page application, only preload actual resources
+  const criticalResources = ['/manifest.json', '/og-image.jpg'];
 
   criticalResources.forEach((url) => {
     const link = document.createElement('link');
@@ -194,7 +191,7 @@ export class CacheManager {
         console.log(`Cache ${cacheName} cleared`);
       } else {
         const cacheNames = await caches.keys();
-        await Promise.all(cacheNames.map(name => caches.delete(name)));
+        await Promise.all(cacheNames.map((name) => caches.delete(name)));
         console.log('All caches cleared');
       }
     } catch (error) {
@@ -214,7 +211,7 @@ export class CacheManager {
       for (const cacheName of cacheNames) {
         const cache = await caches.open(cacheName);
         const requests = await cache.keys();
-        
+
         for (const request of requests) {
           const response = await cache.match(request);
           if (response) {
@@ -233,11 +230,11 @@ export class CacheManager {
 
   static formatBytes(bytes: number): string {
     if (bytes === 0) return '0 Bytes';
-    
+
     const k = 1024;
     const sizes = ['Bytes', 'KB', 'MB', 'GB'];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
-    
+
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
   }
 }
@@ -251,20 +248,24 @@ export class PerformanceMonitor {
 
     window.addEventListener('load', () => {
       setTimeout(() => {
-        const perfData = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
-        
+        const perfData = performance.getEntriesByType(
+          'navigation'
+        )[0] as PerformanceNavigationTiming;
+
         const metrics = {
           dns: perfData.domainLookupEnd - perfData.domainLookupStart,
           tcp: perfData.connectEnd - perfData.connectStart,
           request: perfData.responseStart - perfData.requestStart,
           response: perfData.responseEnd - perfData.responseStart,
-          dom: perfData.domContentLoadedEventEnd - perfData.domContentLoadedEventStart,
+          dom:
+            perfData.domContentLoadedEventEnd -
+            perfData.domContentLoadedEventStart,
           load: perfData.loadEventEnd - perfData.loadEventStart,
-          total: perfData.loadEventEnd - perfData.fetchStart
+          total: perfData.loadEventEnd - perfData.fetchStart,
         };
 
         console.log('Performance metrics:', metrics);
-        
+
         // Send to analytics if needed
         // analytics.track('page_performance', metrics);
       }, 0);
@@ -280,7 +281,9 @@ export class PerformanceMonitor {
       list.getEntries().forEach((entry) => {
         if (entry.entryType === 'resource') {
           const resource = entry as PerformanceResourceTiming;
-          console.log(`Resource: ${resource.name}, Duration: ${resource.duration}ms`);
+          console.log(
+            `Resource: ${resource.name}, Duration: ${resource.duration}ms`
+          );
         }
       });
     });

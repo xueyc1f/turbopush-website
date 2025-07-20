@@ -34,33 +34,19 @@ export function createDynamicImport<T = Record<string, unknown>>(
 }
 
 // Pre-configured dynamic imports for common components
-export const DynamicContactForm = dynamic(
-  () => import('@/components/sections/contact-form').then(mod => ({ default: mod.ContactForm })),
+export const DynamicAboutSection = dynamic(
+  () =>
+    import('@/components/sections/about-section').then((mod) => ({
+      default: mod.AboutSection,
+    })),
   { loading: LoadingSpinner }
 );
 
-export const DynamicProductDemo = dynamic(
-  () => import('@/components/sections/product-demo-section').then(mod => ({ default: mod.ProductDemoSection })),
-  { loading: LoadingSpinner }
-);
-
-export const DynamicAnalyticsDashboard = dynamic(
-  () => import('@/components/sections/analytics-dashboard-demo').then(mod => ({ default: mod.AnalyticsDashboardDemo })),
-  { loading: LoadingSpinner }
-);
-
-export const DynamicScheduledPublishing = dynamic(
-  () => import('@/components/sections/scheduled-publishing-demo').then(mod => ({ default: mod.ScheduledPublishingDemo })),
-  { loading: LoadingSpinner }
-);
-
-export const DynamicMultiPlatformDemo = dynamic(
-  () => import('@/components/sections/multi-platform-demo').then(mod => ({ default: mod.MultiPlatformDemo })),
-  { loading: LoadingSpinner }
-);
-
-export const DynamicContentCreationDemo = dynamic(
-  () => import('@/components/sections/content-creation-demo').then(mod => ({ default: mod.ContentCreationDemo })),
+export const DynamicContactSection = dynamic(
+  () =>
+    import('@/components/sections/contact-section').then((mod) => ({
+      default: mod.ContactSection,
+    })),
   { loading: LoadingSpinner }
 );
 
@@ -72,7 +58,10 @@ export function lazyLoad<T = Record<string, unknown>>(
 }
 
 // Enhanced preload utility for critical components
-export function preloadComponent(importFn: () => Promise<unknown>, priority: 'high' | 'low' = 'low') {
+export function preloadComponent(
+  importFn: () => Promise<unknown>,
+  priority: 'high' | 'low' = 'low'
+) {
   if (typeof window !== 'undefined') {
     if (priority === 'high') {
       // Preload immediately for high priority components
@@ -91,7 +80,7 @@ export function preloadComponent(importFn: () => Promise<unknown>, priority: 'hi
 // Preload components based on user interaction
 export function preloadOnHover(importFn: () => Promise<unknown>) {
   let isPreloaded = false;
-  
+
   return {
     onMouseEnter: () => {
       if (!isPreloaded) {
@@ -104,7 +93,7 @@ export function preloadOnHover(importFn: () => Promise<unknown>) {
         isPreloaded = true;
         preloadComponent(importFn, 'high');
       }
-    }
+    },
   };
 }
 
@@ -112,28 +101,15 @@ export function preloadOnHover(importFn: () => Promise<unknown>) {
 export function preloadRouteComponents() {
   if (typeof window === 'undefined') return;
 
-  // Preload components for likely next routes
-  const routePreloads = [
-    () => import('@/app/features/page'),
-    () => import('@/app/download/page'),
-    () => import('@/app/contact/page'),
-  ];
-
-  // Preload after initial page load
-  if ('requestIdleCallback' in window) {
-    requestIdleCallback(() => {
-      routePreloads.forEach(importFn => importFn());
-    }, { timeout: 5000 });
-  } else {
-    setTimeout(() => {
-      routePreloads.forEach(importFn => importFn());
-    }, 2000);
-  }
+  // No additional routes to preload for single-page website
+  console.log('Single-page website - no additional routes to preload');
 }
 
 // Bundle analyzer helper (development only)
 export function analyzeBundleSize() {
   if (process.env.NODE_ENV === 'development') {
-    console.log('Bundle analysis available at: http://localhost:3000/__nextjs_original-stack-frame');
+    console.log(
+      'Bundle analysis available at: http://localhost:3000/__nextjs_original-stack-frame'
+    );
   }
 }

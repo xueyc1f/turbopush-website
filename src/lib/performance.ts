@@ -26,7 +26,7 @@ export class LazyLoader {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         const element = entry.target;
-        
+
         // Handle image lazy loading
         if (element.tagName === 'IMG') {
           const img = element as HTMLImageElement;
@@ -36,14 +36,14 @@ export class LazyLoader {
             img.removeAttribute('data-src');
           }
         }
-        
+
         // Handle background image lazy loading
         const bgSrc = element.getAttribute('data-bg-src');
         if (bgSrc) {
           (element as HTMLElement).style.backgroundImage = `url(${bgSrc})`;
           element.removeAttribute('data-bg-src');
         }
-        
+
         // Handle iframe lazy loading
         if (element.tagName === 'IFRAME') {
           const iframe = element as HTMLIFrameElement;
@@ -53,10 +53,10 @@ export class LazyLoader {
             iframe.removeAttribute('data-src');
           }
         }
-        
+
         // Trigger custom load event
         element.dispatchEvent(new CustomEvent('lazyload'));
-        
+
         this.unobserve(element);
       }
     });
@@ -110,12 +110,13 @@ export class ResourcePreloader {
         resolve();
       };
       img.onerror = reject;
-      
+
       // Set priority hint if supported
       if ('fetchPriority' in img) {
-        (img as HTMLImageElement & { fetchPriority?: string }).fetchPriority = priority;
+        (img as HTMLImageElement & { fetchPriority?: string }).fetchPriority =
+          priority;
       }
-      
+
       img.src = src;
     });
   }
@@ -132,7 +133,7 @@ export class ResourcePreloader {
     link.onload = () => {
       this.preloadedResources.add(href);
     };
-    
+
     document.head.appendChild(link);
   }
 
@@ -148,7 +149,7 @@ export class ResourcePreloader {
     link.onload = () => {
       this.preloadedResources.add(src);
     };
-    
+
     document.head.appendChild(link);
   }
 
@@ -163,7 +164,7 @@ export class ResourcePreloader {
     link.onload = () => {
       this.preloadedResources.add(href);
     };
-    
+
     document.head.appendChild(link);
   }
 }
@@ -222,13 +223,16 @@ export class PerformanceTracker {
 
     const observer = new PerformanceObserver((list) => {
       for (const entry of list.getEntries()) {
-        const layoutShiftEntry = entry as PerformanceEntry & { hadRecentInput?: boolean; value?: number };
+        const layoutShiftEntry = entry as PerformanceEntry & {
+          hadRecentInput?: boolean;
+          value?: number;
+        };
         if (!layoutShiftEntry.hadRecentInput) {
           clsEntries.push(entry);
           clsValue += layoutShiftEntry.value || 0;
         }
       }
-      
+
       this.metrics.set('cls', clsValue);
     });
 
@@ -256,8 +260,13 @@ export class PerformanceTracker {
 
     const observer = new PerformanceObserver((list) => {
       for (const entry of list.getEntries()) {
-        const fidEntry = entry as PerformanceEntry & { processingStart?: number };
-        this.metrics.set('fid', (fidEntry.processingStart || 0) - entry.startTime);
+        const fidEntry = entry as PerformanceEntry & {
+          processingStart?: number;
+        };
+        this.metrics.set(
+          'fid',
+          (fidEntry.processingStart || 0) - entry.startTime
+        );
       }
     });
 
@@ -321,13 +330,19 @@ export function addCriticalResourceHints(): void {
 
   const hints = [
     { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
-    { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossOrigin: 'anonymous' },
+    {
+      rel: 'preconnect',
+      href: 'https://fonts.gstatic.com',
+      crossOrigin: 'anonymous',
+    },
     { rel: 'dns-prefetch', href: 'https://images.unsplash.com' },
     { rel: 'dns-prefetch', href: 'https://api.turbopush.com' },
   ];
 
   hints.forEach(({ rel, href, crossOrigin }) => {
-    const existing = document.querySelector(`link[rel="${rel}"][href="${href}"]`);
+    const existing = document.querySelector(
+      `link[rel="${rel}"][href="${href}"]`
+    );
     if (!existing) {
       const link = document.createElement('link');
       link.rel = rel;
@@ -355,15 +370,19 @@ export function generateSrcSet(
     .join(', ');
 }
 
-export function generateSizes(breakpoints: Record<string, string> = {
-  '(max-width: 640px)': '100vw',
-  '(max-width: 1024px)': '50vw',
-  default: '33vw'
-}): string {
+export function generateSizes(
+  breakpoints: Record<string, string> = {
+    '(max-width: 640px)': '100vw',
+    '(max-width: 1024px)': '50vw',
+    default: '33vw',
+  }
+): string {
   const entries = Object.entries(breakpoints);
-  const mediaQueries = entries.slice(0, -1).map(([query, size]) => `${query} ${size}`);
+  const mediaQueries = entries
+    .slice(0, -1)
+    .map(([query, size]) => `${query} ${size}`);
   const defaultSize = breakpoints.default || '100vw';
-  
+
   return [...mediaQueries, defaultSize].join(', ');
 }
 
@@ -396,13 +415,9 @@ export function initializePerformanceOptimizations(): void {
 
   // Preload critical resources
   const preloader = getResourcePreloader();
-  
-  // Preload critical images
-  const criticalImages = [
-    '/hero-bg.jpg',
-    '/logo.png',
-    '/features-preview.jpg'
-  ];
+
+  // Preload critical images that actually exist
+  const criticalImages = ['/og-image.jpg'];
 
   criticalImages.forEach((src) => {
     preloader.preloadImage(src, 'high');
@@ -450,12 +465,20 @@ function initializePerformanceMonitoring(): void {
 
     // Monitor memory usage
     if ('memory' in performance) {
-      const memoryInfo = (performance as Performance & { memory?: { usedJSHeapSize: number; totalJSHeapSize: number; jsHeapSizeLimit: number } }).memory;
+      const memoryInfo = (
+        performance as Performance & {
+          memory?: {
+            usedJSHeapSize: number;
+            totalJSHeapSize: number;
+            jsHeapSizeLimit: number;
+          };
+        }
+      ).memory;
       if (memoryInfo) {
         console.log('Memory usage:', {
           used: Math.round(memoryInfo.usedJSHeapSize / 1048576) + 'MB',
           total: Math.round(memoryInfo.totalJSHeapSize / 1048576) + 'MB',
-          limit: Math.round(memoryInfo.jsHeapSizeLimit / 1048576) + 'MB'
+          limit: Math.round(memoryInfo.jsHeapSizeLimit / 1048576) + 'MB',
         });
       }
     }
@@ -500,7 +523,10 @@ export class ResourceOptimizer {
     return ResourceOptimizer.instance;
   }
 
-  async loadImageOptimized(src: string, priority: 'high' | 'low' = 'low'): Promise<HTMLImageElement> {
+  async loadImageOptimized(
+    src: string,
+    priority: 'high' | 'low' = 'low'
+  ): Promise<HTMLImageElement> {
     if (this.loadedResources.has(src)) {
       const img = new Image();
       img.src = src;
@@ -516,13 +542,13 @@ export class ResourceOptimizer {
 
     const loadPromise = new Promise<void>((resolve, reject) => {
       const img = new Image();
-      
+
       img.onload = () => {
         this.loadedResources.add(src);
         this.loadingPromises.delete(src);
         resolve();
       };
-      
+
       img.onerror = () => {
         this.loadingPromises.delete(src);
         reject(new Error(`Failed to load image: ${src}`));
@@ -535,7 +561,8 @@ export class ResourceOptimizer {
 
       // Set fetch priority if supported
       if ('fetchPriority' in img) {
-        (img as HTMLImageElement & { fetchPriority?: string }).fetchPriority = priority;
+        (img as HTMLImageElement & { fetchPriority?: string }).fetchPriority =
+          priority;
       }
 
       img.src = src;
@@ -550,11 +577,9 @@ export class ResourceOptimizer {
   }
 
   preloadCriticalResources(): void {
+    // Only preload resources that actually exist
     const criticalResources = [
-      { type: 'image', src: '/hero-bg.jpg', priority: 'high' },
-      { type: 'image', src: '/logo.png', priority: 'high' },
-      { type: 'script', src: '/_next/static/chunks/main.js', priority: 'high' },
-      { type: 'style', src: '/_next/static/css/app.css', priority: 'high' },
+      { type: 'image', src: '/og-image.jpg', priority: 'high' },
     ];
 
     criticalResources.forEach(({ type, src, priority }) => {
@@ -566,7 +591,11 @@ export class ResourceOptimizer {
         link.as = type === 'script' ? 'script' : 'style';
         link.href = src;
         if ('fetchPriority' in link) {
-          (link as HTMLLinkElement & { fetchPriority?: 'high' | 'low' | 'auto' }).fetchPriority = priority as 'high' | 'low';
+          (
+            link as HTMLLinkElement & {
+              fetchPriority?: 'high' | 'low' | 'auto';
+            }
+          ).fetchPriority = priority as 'high' | 'low';
         }
         document.head.appendChild(link);
       }
@@ -578,14 +607,17 @@ export class ResourceOptimizer {
 export class WebVitalsOptimizer {
   static optimizeLCP(): void {
     // Preload LCP image
-    const heroImage = document.querySelector('.hero-section img') as HTMLImageElement;
+    const heroImage = document.querySelector(
+      '.hero-section img'
+    ) as HTMLImageElement;
     if (heroImage && heroImage.src) {
       const link = document.createElement('link');
       link.rel = 'preload';
       link.as = 'image';
       link.href = heroImage.src;
       if ('fetchPriority' in link) {
-        (link as HTMLLinkElement & { fetchPriority?: string }).fetchPriority = 'high';
+        (link as HTMLLinkElement & { fetchPriority?: string }).fetchPriority =
+          'high';
       }
       document.head.appendChild(link);
     }
@@ -593,7 +625,9 @@ export class WebVitalsOptimizer {
 
   static optimizeFID(): void {
     // Defer non-critical JavaScript
-    const scripts = document.querySelectorAll('script[src]:not([async]):not([defer])');
+    const scripts = document.querySelectorAll(
+      'script[src]:not([async]):not([defer])'
+    );
     scripts.forEach((script) => {
       const scriptElement = script as HTMLScriptElement;
       if (!scriptElement.src.includes('critical')) {
@@ -614,7 +648,9 @@ export class WebVitalsOptimizer {
     });
 
     // Reserve space for dynamic content
-    const dynamicContainers = document.querySelectorAll('[data-dynamic-content]');
+    const dynamicContainers = document.querySelectorAll(
+      '[data-dynamic-content]'
+    );
     dynamicContainers.forEach((container) => {
       const htmlContainer = container as HTMLElement;
       if (!htmlContainer.style.minHeight) {

@@ -21,13 +21,17 @@ interface HeaderProps {
 
 const navigationItems: NavigationItem[] = [
   { label: '首页', href: '/' },
-  { label: '功能', href: '/features' },
-  { label: '下载', href: '/download' },
-  { label: '关于', href: '/about' },
-  { label: '联系', href: '/contact' },
+  { label: '功能', href: '#features' },
+  { label: '下载', href: '#download' },
+  { label: '关于', href: '#about' },
+  { label: '联系', href: '#contact' },
 ];
 
-function Header({ transparent = false, fixed = false, className }: HeaderProps) {
+function Header({
+  transparent = false,
+  fixed = false,
+  className,
+}: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [isScrolled, setIsScrolled] = React.useState(false);
 
@@ -46,7 +50,7 @@ function Header({ transparent = false, fixed = false, className }: HeaderProps) 
     'w-full transition-all duration-300 z-50',
     {
       'fixed top-0': fixed,
-      'bg-background/80 backdrop-blur-md border-b': 
+      'bg-background/80 backdrop-blur-md border-b':
         !transparent || (transparent && isScrolled),
       'bg-transparent': transparent && !isScrolled,
     },
@@ -75,7 +79,10 @@ function Header({ transparent = false, fixed = false, className }: HeaderProps) 
                   'text-sm font-medium transition-colors hover:text-primary',
                   'text-muted-foreground hover:text-foreground'
                 )}
-                {...(item.external && { target: '_blank', rel: 'noopener noreferrer' })}
+                {...(item.external && {
+                  target: '_blank',
+                  rel: 'noopener noreferrer',
+                })}
               >
                 {item.label}
               </Link>
@@ -85,7 +92,7 @@ function Header({ transparent = false, fixed = false, className }: HeaderProps) 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center space-x-4">
             <Button variant="outline" size="sm" asChild>
-              <Link href="/download">免费下载</Link>
+              <Link href="#download">免费下载</Link>
             </Button>
           </div>
 
@@ -97,7 +104,11 @@ function Header({ transparent = false, fixed = false, className }: HeaderProps) 
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle menu"
           >
-            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            {isMenuOpen ? (
+              <X className="h-6 w-6" />
+            ) : (
+              <Menu className="h-6 w-6" />
+            )}
           </Button>
         </div>
 
@@ -111,14 +122,21 @@ function Header({ transparent = false, fixed = false, className }: HeaderProps) 
                   href={item.href}
                   className="block px-6 py-4 text-base font-medium text-muted-foreground hover:text-foreground hover:bg-accent/50 rounded-lg mx-2 transition-all duration-200 active:bg-accent active:scale-[0.98] min-h-[48px] flex items-center"
                   onClick={() => setIsMenuOpen(false)}
-                  {...(item.external && { target: '_blank', rel: 'noopener noreferrer' })}
+                  {...(item.external && {
+                    target: '_blank',
+                    rel: 'noopener noreferrer',
+                  })}
                 >
                   {item.label}
                 </Link>
               ))}
               <div className="px-4 pt-4 border-t border-border/50 mt-4">
-                <Button className="w-full py-4 text-base font-medium min-h-[48px]" size="lg" asChild>
-                  <Link href="/download" onClick={() => setIsMenuOpen(false)}>
+                <Button
+                  className="w-full py-4 text-base font-medium min-h-[48px]"
+                  size="lg"
+                  asChild
+                >
+                  <Link href="#download" onClick={() => setIsMenuOpen(false)}>
                     免费下载
                   </Link>
                 </Button>

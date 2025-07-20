@@ -10,7 +10,9 @@
     "lint:fix": "next lint --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "prepare": "husky"
+    "prepare": "husky",
+    "seo:check": "node scripts/seo-check.js",
+    "seo:report": "npm run seo:check && echo '📊 SEO 报告已生成，请查看 seo-report.json 文件'"
   },
   "dependencies": {
     "@radix-ui/react-dropdown-menu": "^2.1.15",

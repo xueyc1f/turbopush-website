@@ -27,16 +27,14 @@ interface SEOProps {
 
 function PageLayout({
   children,
-  headerProps,
+  headerProps = { fixed: true, transparent: true },
   footerProps,
   className,
 }: PageLayoutProps) {
   return (
     <div className={cn('min-h-screen flex flex-col', className)}>
       <Header {...headerProps} />
-      <main className="flex-1">
-        {children}
-      </main>
+      <main className="flex-1">{children}</main>
       <Footer {...footerProps} />
     </div>
   );
@@ -46,14 +44,21 @@ function PageLayout({
 function generateMetadata({
   title,
   description = 'TurboPush - 强大的多平台内容发布和管理工具，让您的内容创作更高效。支持多个社交媒体平台，提供定时发布、内容管理、数据分析等功能。',
-  keywords = ['TurboPush', '多平台发布', '内容管理', '社交媒体', '定时发布', '内容创作'],
+  keywords = [
+    'TurboPush',
+    '多平台发布',
+    '内容管理',
+    '社交媒体',
+    '定时发布',
+    '内容创作',
+  ],
   ogImage = '/og-image.jpg',
   canonicalUrl,
   noIndex = false,
 }: SEOProps = {}): Metadata {
   const siteTitle = 'TurboPush';
   const fullTitle = title ? `${title} | ${siteTitle}` : siteTitle;
-  
+
   return {
     metadataBase: new URL('https://turbopush.com'),
     title: fullTitle,
@@ -96,7 +101,9 @@ function generateMetadata({
 }
 
 // JSON-LD structured data helper
-function generateStructuredData(type: 'WebSite' | 'SoftwareApplication' | 'Organization' = 'WebSite') {
+function generateStructuredData(
+  type: 'WebSite' | 'SoftwareApplication' | 'Organization' = 'WebSite'
+) {
   const baseData = {
     '@context': 'https://schema.org',
     '@type': type,
@@ -129,12 +136,7 @@ function generateStructuredData(type: 'WebSite' | 'SoftwareApplication' | 'Organ
         },
         downloadUrl: 'https://turbopush.com/download',
         description: '多平台内容发布和管理工具',
-        featureList: [
-          '多平台发布',
-          '定时发布',
-          '内容管理',
-          '数据分析',
-        ],
+        featureList: ['多平台发布', '定时发布', '内容管理', '数据分析'],
       };
 
     case 'Organization':
@@ -142,7 +144,7 @@ function generateStructuredData(type: 'WebSite' | 'SoftwareApplication' | 'Organ
         ...baseData,
         name: 'TurboPush',
         url: 'https://turbopush.com',
-        logo: 'https://turbopush.com/logo.png',
+        logo: 'https://turbopush.com/og-image.jpg',
         contactPoint: {
           '@type': 'ContactPoint',
           telephone: '+1-xxx-xxx-xxxx',
@@ -160,10 +162,10 @@ function generateStructuredData(type: 'WebSite' | 'SoftwareApplication' | 'Organ
   }
 }
 
-export { 
-  PageLayout, 
-  generateMetadata, 
+export {
+  PageLayout,
+  generateMetadata,
   generateStructuredData,
-  type PageLayoutProps, 
-  type SEOProps 
+  type PageLayoutProps,
+  type SEOProps,
 };
