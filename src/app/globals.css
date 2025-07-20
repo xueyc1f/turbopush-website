@@ -3,6 +3,555 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Critical CSS - Above the fold styles */
+@layer base {
+  /* Font loading optimization with better fallbacks */
+  @font-face {
+    font-family: 'Inter-fallback';
+    src: local('Arial'), local('Helvetica'), local('system-ui'), local('sans-serif');
+    font-display: swap;
+    ascent-override: 90.20%;
+    descent-override: 22.48%;
+    line-gap-override: 0%;
+    size-adjust: 107.40%;
+  }
+
+  /* Preload critical font subsets */
+  @font-face {
+    font-family: 'Inter-critical';
+    src: url('data:font/woff2;base64,') format('woff2');
+    font-display: block;
+    font-weight: 400;
+    unicode-range: U+0020-007F; /* Basic Latin */
+  }
+
+  /* Optimize font rendering */
+  * {
+    font-synthesis: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Critical layout styles */
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    font-family: var(--font-inter), 'Inter-fallback', system-ui, -apple-system, sans-serif;
+  }
+
+  /* Prevent layout shift */
+  img, video {
+    height: auto;
+    max-width: 100%;
+  }
+
+  /* Optimize focus styles */
+  :focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+  }
+
+  /* Reduce motion for users who prefer it */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Mobile-specific optimizations */
+  @media (max-width: 768px) {
+    /* Improve touch targets */
+    button, 
+    a[role="button"], 
+    input, 
+    textarea, 
+    select,
+    [data-slot="button"] {
+      min-height: 44px;
+      min-width: 44px;
+    }
+
+    /* Optimize text for mobile reading */
+    body {
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* Prevent horizontal scroll */
+    html, body {
+      overflow-x: hidden;
+      width: 100%;
+    }
+
+    /* Optimize form inputs for mobile */
+    input, textarea, select {
+      font-size: 16px; /* Prevents zoom on iOS */
+      -webkit-appearance: none;
+      border-radius: 8px;
+    }
+
+    /* Better spacing for mobile */
+    .mobile-spacing {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+
+    /* Touch-friendly interactions */
+    .touch-friendly:hover {
+      background-color: transparent;
+    }
+
+    .touch-friendly:active,
+    button:active,
+    [data-slot="button"]:active {
+      transform: scale(0.98);
+      transition: transform 0.1s ease;
+    }
+
+    /* Improve tap targets for cards and interactive elements */
+    .touch-manipulation {
+      touch-action: manipulation;
+    }
+
+    /* Better mobile typography */
+    h1 {
+      font-size: 2rem;
+      line-height: 1.2;
+    }
+
+    h2 {
+      font-size: 1.75rem;
+      line-height: 1.3;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      line-height: 1.3;
+    }
+
+    /* Optimize mobile navigation */
+    .mobile-nav-item {
+      padding: 1rem 1.5rem;
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+    }
+
+    /* Better mobile form styling */
+    .mobile-form-field {
+      margin-bottom: 1.5rem;
+    }
+
+    .mobile-form-field label {
+      font-size: 0.875rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    /* Improve mobile card layouts */
+    .mobile-card {
+      margin: 0.5rem;
+      padding: 1rem;
+    }
+
+    /* Better mobile button spacing */
+    .mobile-button-group {
+      gap: 0.75rem;
+    }
+
+    .mobile-button-group button {
+      min-height: 48px;
+      padding: 0.75rem 1.5rem;
+    }
+  }
+
+  /* Tablet-specific optimizations */
+  @media (min-width: 768px) and (max-width: 1024px) {
+    /* Optimize for tablet touch */
+    button, 
+    a[role="button"],
+    [data-slot="button"] {
+      min-height: 48px;
+      min-width: 48px;
+    }
+
+    /* Better tablet typography with improved readability */
+    h1 {
+      font-size: 2.5rem;
+      line-height: 1.2;
+    }
+
+    h2 {
+      font-size: 2rem;
+      line-height: 1.3;
+    }
+
+    h3 {
+      font-size: 1.75rem;
+      line-height: 1.3;
+    }
+
+    /* Enhanced tablet-specific grid adjustments */
+    .tablet-grid-2 {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .tablet-grid-3 {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    .tablet-spacing {
+      padding: 1.5rem;
+    }
+
+    /* Better tablet card layouts */
+    .tablet-card {
+      padding: 1.5rem;
+      margin: 0.75rem;
+    }
+
+    /* Improved tablet navigation */
+    .tablet-nav-item {
+      padding: 1rem 1.25rem;
+      min-height: 48px;
+    }
+
+    /* Better tablet form elements */
+    input, textarea, select {
+      min-height: 48px;
+      padding: 0.75rem 1rem;
+      font-size: 16px;
+    }
+
+    /* Tablet-specific image optimizations */
+    .tablet-image-container {
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* Better tablet button groups */
+    .tablet-button-group {
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .tablet-button-group button {
+      min-width: 120px;
+      padding: 0.75rem 1.5rem;
+    }
+
+    /* Tablet-specific content layout */
+    .tablet-content {
+      max-width: 90%;
+      margin: 0 auto;
+    }
+
+    /* Better tablet hero sections */
+    .tablet-hero {
+      padding: 3rem 1.5rem;
+    }
+
+    .tablet-hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .tablet-hero p {
+      font-size: 1.125rem;
+      line-height: 1.6;
+    }
+  }
+
+  /* Large tablet and small desktop (iPad Pro, Surface Pro) */
+  @media (min-width: 1024px) and (max-width: 1280px) {
+    /* Optimize for large tablets and small desktops */
+    .large-tablet-grid-4 {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+
+    .large-tablet-spacing {
+      padding: 2rem;
+    }
+
+    /* Better typography for large tablets */
+    h1 {
+      font-size: 3rem;
+    }
+
+    h2 {
+      font-size: 2.25rem;
+    }
+
+    /* Improved content width for large tablets */
+    .large-tablet-content {
+      max-width: 85%;
+      margin: 0 auto;
+    }
+  }
+
+  /* Cross-device image optimizations */
+  @media (min-resolution: 2dppx) {
+    /* High-DPI display optimizations */
+    .high-dpi-image {
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: crisp-edges;
+    }
+  }
+
+  /* Landscape orientation optimizations */
+  @media (orientation: landscape) and (max-height: 600px) {
+    /* Optimize for landscape mobile devices */
+    .landscape-mobile-hero {
+      min-height: 80vh;
+      padding: 2rem 1rem;
+    }
+
+    .landscape-mobile-nav {
+      height: 60px;
+    }
+
+    /* Compact vertical spacing for landscape */
+    .landscape-compact {
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+    }
+  }
+
+  /* Portrait tablet optimizations */
+  @media (orientation: portrait) and (min-width: 768px) and (max-width: 1024px) {
+    .portrait-tablet-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .portrait-tablet-content {
+      max-width: 95%;
+      padding: 0 1rem;
+    }
+  }
+
+  /* Extra small mobile devices */
+  @media (max-width: 375px) {
+    /* Very small screens optimization */
+    .container {
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
+    }
+
+    /* Compact text for very small screens */
+    h1 {
+      font-size: 1.5rem;
+      line-height: 1.2;
+    }
+
+    h2 {
+      font-size: 1.25rem;
+      line-height: 1.3;
+    }
+
+    h3 {
+      font-size: 1.125rem;
+      line-height: 1.3;
+    }
+
+    /* Compact buttons for very small screens */
+    button,
+    [data-slot="button"] {
+      min-height: 44px;
+      padding: 0.625rem 0.875rem;
+      font-size: 0.875rem;
+    }
+
+    /* Compact cards */
+    .card {
+      margin: 0.125rem;
+      padding: 0.625rem;
+    }
+
+    /* Tighter form spacing */
+    .form-field {
+      margin-bottom: 0.875rem;
+    }
+  }
+
+  /* Small mobile devices */
+  @media (min-width: 375px) and (max-width: 480px) {
+    /* Small screens optimization */
+    .container {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+
+    /* Optimized text for small screens */
+    h1 {
+      font-size: 1.75rem;
+      line-height: 1.2;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      line-height: 1.3;
+    }
+
+    h3 {
+      font-size: 1.25rem;
+      line-height: 1.3;
+    }
+
+    /* Better button sizing for small screens */
+    button,
+    [data-slot="button"] {
+      min-height: 48px;
+      padding: 0.75rem 1rem;
+      font-size: 0.875rem;
+    }
+
+    /* Optimize cards for small screens */
+    .card {
+      margin: 0.25rem;
+      padding: 0.75rem;
+    }
+
+    /* Better form field spacing */
+    .form-field {
+      margin-bottom: 1rem;
+    }
+  }
+
+  /* Medium mobile devices */
+  @media (min-width: 480px) and (max-width: 640px) {
+    /* Medium mobile optimization */
+    .container {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+
+    /* Standard mobile text sizing */
+    h1 {
+      font-size: 2rem;
+      line-height: 1.2;
+    }
+
+    h2 {
+      font-size: 1.75rem;
+      line-height: 1.3;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      line-height: 1.3;
+    }
+
+    /* Standard mobile buttons */
+    button,
+    [data-slot="button"] {
+      min-height: 48px;
+      padding: 0.75rem 1.25rem;
+      font-size: 1rem;
+    }
+
+    /* Standard mobile cards */
+    .card {
+      margin: 0.5rem;
+      padding: 1rem;
+    }
+
+    /* Standard form spacing */
+    .form-field {
+      margin-bottom: 1.25rem;
+    }
+  }
+
+  /* Critical performance optimizations */
+  
+  /* Optimize scrolling performance */
+  * {
+    scroll-behavior: smooth;
+  }
+  
+  @supports (scroll-behavior: smooth) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  /* Optimize paint and composite layers */
+  .will-change-transform {
+    will-change: transform;
+  }
+  
+  .will-change-opacity {
+    will-change: opacity;
+  }
+  
+  .will-change-scroll {
+    will-change: scroll-position;
+  }
+
+  /* Optimize animations for 60fps */
+  .animate-optimized {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+
+  /* Lazy loading placeholder styles */
+  .lazy-loading {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+  }
+
+  @keyframes loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+
+  /* Critical above-the-fold layout */
+  .hero-section {
+    min-height: 100vh;
+    contain: layout style paint;
+  }
+
+  /* Optimize image containers */
+  .image-container {
+    contain: layout style paint;
+    content-visibility: auto;
+    contain-intrinsic-size: 300px 200px;
+  }
+
+  /* Optimize text rendering */
+  .text-optimized {
+    text-rendering: optimizeSpeed;
+    font-feature-settings: "kern" 1;
+    font-kerning: auto;
+  }
+
+  /* Critical resource hints */
+  .preload-hint::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
