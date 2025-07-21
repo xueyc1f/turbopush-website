@@ -1,9 +1,8 @@
 import * as React from 'react';
 import { Container } from '@/components/ui/container';
 import { Typography } from '@/components/ui/typography';
-import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
-import { CheckCircle, AlertCircle } from 'lucide-react';
+import { CheckCircle } from 'lucide-react';
 
 interface Platform {
   name: string;
@@ -127,39 +126,15 @@ const defaultPlatforms: Platform[] = [
   },
 ];
 
-function getStatusIcon(status: Platform['status']) {
+// 简化的状态指示器函数（现在使用圆点指示器）
+function getStatusColor(status: Platform['status']) {
   switch (status) {
     case 'active':
-      return <CheckCircle className="h-4 w-4 text-green-500" />;
+      return 'bg-green-500';
     case 'beta':
-      return <AlertCircle className="h-4 w-4 text-yellow-500" />;
+      return 'bg-yellow-500';
     default:
-      return null;
-  }
-}
-
-function getStatusBadge(status: Platform['status']) {
-  switch (status) {
-    case 'active':
-      return (
-        <Badge
-          variant="default"
-          className="bg-green-100 text-green-800 border-green-200"
-        >
-          已支持
-        </Badge>
-      );
-    case 'beta':
-      return (
-        <Badge
-          variant="secondary"
-          className="bg-yellow-100 text-yellow-800 border-yellow-200"
-        >
-          测试版
-        </Badge>
-      );
-    default:
-      return null;
+      return 'bg-gray-400';
   }
 }
 
@@ -171,8 +146,19 @@ export function PlatformsSection({
   const supportedPlatforms = platforms;
 
   return (
-    <section className="py-24 bg-gradient-to-b from-muted/20 to-background">
-      <Container>
+    <section className="py-24 bg-gradient-to-b from-muted/20 to-background relative overflow-hidden">
+      {/* Subtle background pattern */}
+      <div className="absolute inset-0 opacity-[0.02]">
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0)`,
+            backgroundSize: '24px 24px',
+          }}
+        ></div>
+      </div>
+
+      <Container className="relative z-10">
         {/* Section Header */}
         <div className="text-center mb-16">
           <Typography
@@ -206,57 +192,148 @@ export function PlatformsSection({
 
         {/* Supported Platforms */}
         <div className="mb-16">
-          <Typography
-            variant="h3"
-            className="text-xl sm:text-2xl font-semibold mb-8 text-center"
-          >
-            支持平台
-          </Typography>
-          {/* Enhanced grid with better tablet and cross-device support */}
-          <div className="grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8 gap-3 sm:gap-4 md:gap-5">
+          <div className="text-center mb-12">
+            <Typography
+              variant="h3"
+              className="text-xl sm:text-2xl lg:text-3xl font-bold mb-4 bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent"
+            >
+              支持平台
+            </Typography>
+            <div className="w-16 h-1 bg-gradient-to-r from-primary to-primary/60 mx-auto rounded-full mb-6"></div>
+            <Typography
+              variant="muted"
+              className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto leading-relaxed"
+            >
+              覆盖主流社交媒体平台，让您的内容触达更广泛的受众群体
+            </Typography>
+          </div>
+          {/* 紧凑型网格布局 */}
+          <div className="grid grid-cols-4 xs:grid-cols-5 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12 gap-2 sm:gap-3">
             {supportedPlatforms.map((platform, index) => (
               <Card
                 key={index}
-                className="group transition-all duration-300 hover:shadow-lg hover:-translate-y-1 active:scale-95 border-2 hover:border-primary/30 touch-manipulation"
+                className="group relative overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1 active:scale-95 border border-border/50 hover:border-primary/30 touch-manipulation bg-white/50 backdrop-blur-sm animate-fade-in cursor-pointer"
+                style={{
+                  animationDelay: `${index * 30}ms`,
+                  animationFillMode: 'both',
+                }}
+                tabIndex={0}
+                role="button"
+                aria-label={`查看 ${platform.name} 平台详情`}
               >
-                <CardContent className="p-0 text-center">
-                  {/* Responsive icon sizing with better tablet support */}
-                  <div
-                    className={`w-10 h-10 xs:w-12 xs:h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 mx-auto mb-2 sm:mb-3 md:mb-4 rounded-lg sm:rounded-xl md:rounded-2xl bg-gradient-to-br flex items-center justify-center text-lg xs:text-xl sm:text-2xl shadow-lg group-hover:scale-110 transition-transform duration-300`}
-                    dangerouslySetInnerHTML={{ __html: platform.icon }}
-                  ></div>
-                  {/* Responsive typography */}
+                <CardContent className="p-2 text-center relative">
+                  {/* 紧凑图标 */}
+                  <div className="relative mb-1.5">
+                    <div
+                      className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 mx-auto rounded-lg bg-white shadow-sm group-hover:shadow-md flex items-center justify-center transition-all duration-200 group-hover:scale-105"
+                      dangerouslySetInnerHTML={{ __html: platform.icon }}
+                      role="img"
+                      aria-label={`${platform.name} 平台图标`}
+                    ></div>
+                  </div>
+
+                  {/* 紧凑平台名称 */}
                   <Typography
                     variant="small"
-                    className="font-semibold mb-1 sm:mb-2 group-hover:text-primary transition-colors text-xs sm:text-sm leading-tight"
+                    className="font-medium mb-1 group-hover:text-primary transition-colors duration-200 text-xs leading-tight truncate"
+                    title={platform.name}
                   >
                     {platform.name}
                   </Typography>
-                  {/* Status indicators with better mobile/tablet visibility */}
-                  <div className="flex items-center justify-center gap-1 mb-1 sm:mb-2">
-                    {getStatusIcon(platform.status)}
-                    {/* Show badge on tablet and up, or when there's enough space */}
-                    <div className="hidden md:block">
-                      {getStatusBadge(platform.status)}
-                    </div>
-                    {/* Mobile-friendly status text */}
-                    <div className="block md:hidden text-xs text-muted-foreground">
-                      {platform.status === 'active' && '✓'}
-                      {platform.status === 'beta' && 'β'}
-                    </div>
+
+                  {/* 简化状态指示器 */}
+                  <div className="flex items-center justify-center">
+                    <span
+                      className={`w-2 h-2 rounded-full ${
+                        platform.status === 'active'
+                          ? 'bg-green-500'
+                          : 'bg-yellow-500'
+                      }`}
+                      title={platform.status === 'active' ? '已支持' : '测试版'}
+                    ></span>
                   </div>
-                  {/* Description with better responsive visibility */}
-                  {platform.description && (
-                    <Typography
-                      variant="muted"
-                      className="text-xs hidden lg:block leading-tight"
-                    >
-                      {platform.description}
-                    </Typography>
-                  )}
                 </CardContent>
+
+                {/* 悬停时显示描述 */}
+                {platform.description && (
+                  <div className="absolute inset-x-0 bottom-0 bg-black/80 text-white text-xs p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 transform translate-y-full group-hover:translate-y-0">
+                    {platform.description}
+                  </div>
+                )}
               </Card>
             ))}
+
+            {/* 其他平台陆续支持中提示 */}
+            <Card className="group relative overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1 border-2 border-dashed border-primary/30 hover:border-primary/50 bg-gradient-to-br from-primary/5 to-primary/10 backdrop-blur-sm">
+              <CardContent className="p-2 text-center relative">
+                {/* 加号图标 */}
+                <div className="relative mb-1.5">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 mx-auto rounded-lg bg-primary/10 flex items-center justify-center transition-all duration-200 group-hover:scale-105">
+                    <svg
+                      className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-primary"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 4v16m8-8H4"
+                      />
+                    </svg>
+                  </div>
+                </div>
+
+                {/* 提示文字 */}
+                <Typography
+                  variant="small"
+                  className="font-medium mb-1 text-primary/80 group-hover:text-primary transition-colors duration-200 text-xs leading-tight truncate"
+                  title="更多平台"
+                >
+                  更多平台
+                </Typography>
+
+                {/* 状态指示器 */}
+                <div className="flex items-center justify-center">
+                  <span
+                    className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"
+                    title="陆续支持中"
+                  ></span>
+                </div>
+              </CardContent>
+
+              {/* 悬停时显示描述 */}
+              <div className="absolute inset-x-0 bottom-0 bg-black/80 text-white text-xs p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 transform translate-y-full group-hover:translate-y-0">
+                更多平台陆续支持中，敬请期待
+              </div>
+            </Card>
+          </div>
+
+          {/* 底部提示信息 */}
+          <div className="mt-8 text-center">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200/50 rounded-full">
+              <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+              <Typography
+                variant="small"
+                className="text-blue-700 text-sm font-medium"
+              >
+                更多平台陆续支持中，敬请期待
+              </Typography>
+              <svg
+                className="w-4 h-4 text-blue-500"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M13 7l5 5m0 0l-5 5m5-5H6"
+                />
+              </svg>
+            </div>
           </div>
         </div>
       </Container>
