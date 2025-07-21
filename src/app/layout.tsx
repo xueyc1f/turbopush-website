@@ -94,7 +94,7 @@ export default function RootLayout({
             __html: JSON.stringify(softwareStructuredData),
           }}
         />
-        <link rel="canonical" href="https://turbopush.com" />
+        <link rel="canonical" href="https://turbopush.dpdns.org" />
         <meta
           name="google-site-verification"
           content="your-google-verification-code"

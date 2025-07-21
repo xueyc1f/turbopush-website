@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 
 export const dynamic = 'force-static';
 export async function GET() {
-  const baseUrl = 'https://turbopush.com';
+  const baseUrl = 'https://turbopush.dpdns.org';
   const currentDate = new Date().toISOString();
   const lastWeek = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
 

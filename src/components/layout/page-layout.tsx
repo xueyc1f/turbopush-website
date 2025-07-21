@@ -60,7 +60,7 @@ function generateMetadata({
   const fullTitle = title ? `${title} | ${siteTitle}` : siteTitle;
 
   return {
-    metadataBase: new URL('https://turbopush.com'),
+    metadataBase: new URL('https://turbopush.dpdns.org'),
     title: fullTitle,
     description,
     keywords: keywords.join(', '),
@@ -114,11 +114,11 @@ function generateStructuredData(
       return {
         ...baseData,
         name: 'TurboPush',
-        url: 'https://turbopush.com',
+        url: 'https://turbopush.dpdns.org',
         description: 'TurboPush - 强大的多平台内容发布和管理工具',
         potentialAction: {
           '@type': 'SearchAction',
-          target: 'https://turbopush.com/search?q={search_term_string}',
+          target: 'https://turbopush.dpdns.org/search?q={search_term_string}',
           'query-input': 'required name=search_term_string',
         },
       };
@@ -134,7 +134,7 @@ function generateStructuredData(
           price: '0',
           priceCurrency: 'USD',
         },
-        downloadUrl: 'https://turbopush.com/download',
+        downloadUrl: 'https://turbopush.dpdns.org/#download',
         description: '多平台内容发布和管理工具',
         featureList: ['多平台发布', '定时发布', '内容管理', '数据分析'],
       };
@@ -143,8 +143,8 @@ function generateStructuredData(
       return {
         ...baseData,
         name: 'TurboPush',
-        url: 'https://turbopush.com',
-        logo: 'https://turbopush.com/og-image.jpg',
+        url: 'https://turbopush.dpdns.org',
+        logo: 'https://turbopush.dpdns.org/og-image.jpg',
         contactPoint: {
           '@type': 'ContactPoint',
           telephone: '+1-xxx-xxx-xxxx',
