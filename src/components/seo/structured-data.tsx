@@ -1,5 +1,3 @@
-'use client';
-
 import { generateStructuredData } from '@/lib/metadata';
 import { seoConfig } from '@/lib/seo-config';
 

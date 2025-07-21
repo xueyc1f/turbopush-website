@@ -15,7 +15,11 @@ interface FooterProps {
 // 删除了复杂的 footerSections，简化为左侧布局
 
 const socialLinks = [
-  { icon: Github, href: 'https://github.com/xueyc1f', label: 'GitHub' },
+  {
+    icon: Github,
+    href: 'https://github.com/xueyc1f/turbopush-website',
+    label: 'GitHub',
+  },
   // { icon: X, href: 'https://twitter.com/turbopush', label: 'X (Twitter)' },
   { icon: Mail, href: 'mailto:kube.call@gmail.com', label: 'Email' },
 ];

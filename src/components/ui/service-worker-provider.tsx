@@ -2,27 +2,27 @@
 
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { 
-  registerServiceWorker, 
-  skipWaiting, 
-  addNetworkListeners,
+import {
+  registerServiceWorker,
+  skipWaiting,
   preloadCriticalResources,
-  PerformanceMonitor
+  PerformanceMonitor,
 } from '@/lib/service-worker';
-import { 
-  initializePerformanceOptimizations, 
+import {
+  initializePerformanceOptimizations,
   WebVitalsOptimizer,
-  ResourceOptimizer 
+  ResourceOptimizer,
 } from '@/lib/performance';
-import { RefreshCw, Wifi, WifiOff } from 'lucide-react';
+import { RefreshCw } from 'lucide-react';
 
 interface ServiceWorkerProviderProps {
   children: React.ReactNode;
 }
 
-export function ServiceWorkerProvider({ children }: ServiceWorkerProviderProps) {
+export function ServiceWorkerProvider({
+  children,
+}: ServiceWorkerProviderProps) {
   const [updateAvailable, setUpdateAvailable] = useState(false);
-  const [isOnline, setIsOnline] = useState(true);
   const [isUpdating, setIsUpdating] = useState(false);
 
   useEffect(() => {
@@ -36,14 +36,8 @@ export function ServiceWorkerProvider({ children }: ServiceWorkerProviderProps) 
       },
       onError: (error) => {
         console.error('Service Worker registration failed:', error);
-      }
+      },
     });
-
-    // Add network listeners
-    const cleanup = addNetworkListeners(
-      () => setIsOnline(true),
-      () => setIsOnline(false)
-    );
 
     // Preload critical resources
     preloadCriticalResources();
@@ -61,17 +55,12 @@ export function ServiceWorkerProvider({ children }: ServiceWorkerProviderProps) 
     // Initialize resource optimizer
     const resourceOptimizer = ResourceOptimizer.getInstance();
     resourceOptimizer.preloadCriticalResources();
-
-    // Set initial online status
-    setIsOnline(navigator.onLine);
-
-    return cleanup;
   }, []);
 
   const handleUpdate = async () => {
     setIsUpdating(true);
     skipWaiting();
-    
+
     // Wait a bit for the service worker to update
     setTimeout(() => {
       window.location.reload();
@@ -81,7 +70,7 @@ export function ServiceWorkerProvider({ children }: ServiceWorkerProviderProps) 
   return (
     <>
       {children}
-      
+
       {/* Update notification */}
       {updateAvailable && (
         <div className="fixed bottom-4 right-4 z-50 max-w-sm">
@@ -109,45 +98,14 @@ export function ServiceWorkerProvider({ children }: ServiceWorkerProviderProps) 
           </div>
         </div>
       )}
-
-      {/* Offline notification */}
-      {!isOnline && (
-        <div className="fixed top-16 left-1/2 transform -translate-x-1/2 z-50">
-          <div className="bg-destructive text-destructive-foreground px-4 py-2 rounded-lg shadow-lg flex items-center gap-2">
-            <WifiOff className="h-4 w-4" />
-            <span className="text-sm font-medium">您当前处于离线状态</span>
-          </div>
-        </div>
-      )}
-
-      {/* Online notification (brief) */}
-      {isOnline && (
-        <div className="fixed top-16 left-1/2 transform -translate-x-1/2 z-50 transition-opacity duration-300">
-          <div className="bg-green-600 text-white px-4 py-2 rounded-lg shadow-lg flex items-center gap-2 opacity-0 animate-pulse">
-            <Wifi className="h-4 w-4" />
-            <span className="text-sm font-medium">已恢复网络连接</span>
-          </div>
-        </div>
-      )}
     </>
   );
 }
 
 // Hook for using service worker status
 export function useServiceWorker() {
-  const [isOnline, setIsOnline] = useState(true);
+  const [isOnline] = useState(true);
   const [updateAvailable] = useState(false);
-
-  useEffect(() => {
-    const cleanup = addNetworkListeners(
-      () => setIsOnline(true),
-      () => setIsOnline(false)
-    );
-
-    setIsOnline(navigator.onLine);
-
-    return cleanup;
-  }, []);
 
   return {
     isOnline,
@@ -155,6 +113,6 @@ export function useServiceWorker() {
     update: () => {
       skipWaiting();
       setTimeout(() => window.location.reload(), 1000);
-    }
+    },
   };
 }
