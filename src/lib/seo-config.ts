@@ -1,5 +1,5 @@
 export const seoConfig = {
-  baseUrl: 'https://turbopush.dpdns.org',
+  baseUrl: 'https://www.turbopush.top',
   siteName: 'TurboPush',
   defaultTitle: 'TurboPush - 多平台内容发布管理工具 | 免费下载支持Chrome浏览器',
   defaultDescription:
@@ -50,8 +50,8 @@ export const seoConfig = {
   // Structured data defaults
   organization: {
     name: 'TurboPush',
-    url: 'https://turbopush.dpdns.org',
-    logo: 'https://turbopush.dpdns.org/og-image.jpg',
+    url: 'https://www.turbopush.top',
+    logo: 'https://www.turbopush.top/og-image.jpg',
     description: 'TurboPush 是一个强大的多平台内容发布和管理工具',
     foundingDate: '2024',
     contactPoint: {
@@ -67,7 +67,7 @@ export const seoConfig = {
     category: 'BusinessApplication',
     operatingSystem: 'Windows, macOS, Linux',
     version: '0.0.1',
-    downloadUrl: 'https://turbopush.dpdns.org/#download',
+    downloadUrl: 'https://www.turbopush.top/#download',
     price: '0',
     priceCurrency: 'CNY',
   },

@@ -9,7 +9,7 @@ import https from 'https';
 import fs from 'fs';
 import path from 'path';
 
-const BASE_URL = 'https://turbopush.dpdns.org';
+const BASE_URL = 'https://www.turbopush.top';
 const TIMEOUT = 10000;
 
 class SEOChecker {
