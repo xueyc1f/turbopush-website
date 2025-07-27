@@ -23,6 +23,7 @@ export const seoConfig = {
     'Windows',
     'macOS',
     'Linux',
+    '快推助手',
   ],
   author: 'TurboPush Team',
   creator: 'TurboPush',
@@ -77,7 +78,7 @@ export const seoConfig = {
     home: {
       title: 'TurboPush - 多平台内容发布管理工具 | 支持8个主流平台免费下载',
       description:
-        'TurboPush 是专业的多平台内容发布工具，支持微博、微信公众号、抖音、小红书、B站、知乎、Twitter、LinkedIn等8个主流平台。提供智能内容创作、一键发布、安装指南、团队介绍和技术支持。需要Chrome浏览器，完全免费下载，支持Windows/macOS/Linux系统。',
+        'TurboPush 是专业的多平台内容发布工具，支持微博、微信公众号、抖音、小红书、B站、知乎等多个主流平台。提供智能内容创作、一键发布、安装指南、团队介绍和技术支持。需要Chrome浏览器，完全免费下载，支持Windows/macOS/Linux系统。',
       keywords: [
         'TurboPush',
         '多平台发布',
@@ -105,6 +106,7 @@ export const seoConfig = {
         '社交媒体管理',
         '安装指南',
         '技术支持',
+        '快推助手',
       ],
     },
   },

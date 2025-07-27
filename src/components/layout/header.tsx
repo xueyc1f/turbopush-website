@@ -64,7 +64,7 @@ function Header({
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">T</span>
+              <span className="text-white font-bold text-sm">TP</span>
             </div>
             <span className="font-bold text-xl">TurboPush</span>
           </Link>

@@ -51,6 +51,7 @@ function generateMetadata({
     '社交媒体',
     '定时发布',
     '内容创作',
+    '快推助手',
   ],
   ogImage = '/og-image.jpg',
   canonicalUrl,
