@@ -22,7 +22,13 @@ interface DownloadOption {
 }
 
 interface DownloadButtonProps {
-  variant?: 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link';
+  variant?:
+    | 'default'
+    | 'destructive'
+    | 'outline'
+    | 'secondary'
+    | 'ghost'
+    | 'link';
   size?: 'default' | 'sm' | 'lg' | 'icon';
   autoDetect?: boolean;
   showDropdown?: boolean;
@@ -70,10 +76,10 @@ const downloadOptions: DownloadOption[] = [
 
 function detectOperatingSystem(): string {
   if (typeof window === 'undefined') return 'Unknown';
-  
+
   const userAgent = window.navigator.userAgent;
   const platform = window.navigator.platform;
-  
+
   if (userAgent.includes('Win') || platform.includes('Win')) {
     return 'Windows';
   } else if (userAgent.includes('Mac') || platform.includes('Mac')) {
@@ -81,21 +87,29 @@ function detectOperatingSystem(): string {
     try {
       // 使用更可靠的方法检测 Apple Silicon
       // 1. 检查 navigator.userAgentData (如果支持)
-      if ('userAgentData' in navigator && (navigator as any).userAgentData) {
-        const brands = (navigator as any).userAgentData.brands || [];
-        const platformInfo = (navigator as any).userAgentData.platform;
+      if ('userAgentData' in navigator && navigator.userAgentData) {
+        const userAgentData = navigator.userAgentData as {
+          brands?: { brand: string; version: string }[];
+          platform?: string;
+        };
+        const brands = userAgentData.brands || [];
+        const platformInfo = userAgentData.platform;
         console.log('UserAgentData:', { brands, platform: platformInfo });
       }
-      
+
       // 2. 检查最大触控点数（M系列通常支持更多触控点）
       const maxTouchPoints = navigator.maxTouchPoints || 0;
-      
+
       // 3. 检查屏幕分辨率和像素比（M系列 Mac 通常有高像素比）
       const pixelRatio = window.devicePixelRatio || 1;
       const screenWidth = window.screen.width;
-      
-      console.log('Detection info:', { maxTouchPoints, pixelRatio, screenWidth });
-      
+
+      console.log('Detection info:', {
+        maxTouchPoints,
+        pixelRatio,
+        screenWidth,
+      });
+
       // M系列 Mac 的启发式检测
       // MacIntel 在 Rosetta 模式下仍会显示，但可以通过其他特征判断
       if (platform === 'MacIntel') {
@@ -103,24 +117,23 @@ function detectOperatingSystem(): string {
         // - 通常支持触控（maxTouchPoints > 0）
         // - 高像素比显示器
         // - 或者直接默认为 M系列（因为现在大部分新 Mac 都是 M系列）
-        
+
         // 简单的启发式：如果是较新的高分辨率显示器，可能是 M系列
         if (pixelRatio >= 2 && screenWidth >= 1400) {
           return 'MacOS (M系列芯片)';
         }
-        
+
         // 默认推荐 M系列（因为现在是主流）
         return 'MacOS (M系列芯片)';
       }
-      
+
       // 如果明确检测到 ARM，则是 M系列
       if (platform.includes('ARM') || platform.includes('arm64')) {
         return 'MacOS (M系列芯片)';
       }
-      
+
       // 默认情况
       return 'MacOS (M系列芯片)';
-      
     } catch (error) {
       console.log('Detection error:', error);
       return 'MacOS (M系列芯片)';
@@ -132,7 +145,7 @@ function detectOperatingSystem(): string {
   } else if (userAgent.includes('iPhone') || userAgent.includes('iPad')) {
     return 'iOS';
   }
-  
+
   return 'Unknown';
 }
 
@@ -154,19 +167,19 @@ export function DownloadButton({
 
   const getRecommendedDownload = (): DownloadOption | null => {
     if (!autoDetect) return downloadOptions[0];
-    
+
     const recommended = downloadOptions.find(
-      option => option.platform === detectedOS
+      (option) => option.platform === detectedOS
     );
-    
+
     return recommended || downloadOptions[0];
   };
 
   const handleDownload = async (option: DownloadOption) => {
     // Track download statistics
-    setDownloadStats(prev => ({
+    setDownloadStats((prev) => ({
       ...prev,
-      [option.platform]: (prev[option.platform] || 0) + 1
+      [option.platform]: (prev[option.platform] || 0) + 1,
     }));
 
     // Call onDownload callback if provided
@@ -177,14 +190,18 @@ export function DownloadButton({
     // In a real implementation, this would trigger the actual download
     // For now, we'll just log the download attempt
     console.log(`Downloading ${option.platform} version:`, option.url);
-    
+
     // Simulate download tracking
     try {
       // This would be replaced with actual analytics tracking
       const windowWithGtag = window as typeof window & {
-        gtag?: (command: string, action: string, parameters: Record<string, unknown>) => void;
+        gtag?: (
+          command: string,
+          action: string,
+          parameters: Record<string, unknown>
+        ) => void;
       };
-      
+
       if (typeof window !== 'undefined' && windowWithGtag.gtag) {
         windowWithGtag.gtag('event', 'download', {
           event_category: 'engagement',
@@ -239,7 +256,10 @@ export function DownloadButton({
           <Download className="mr-2 h-4 w-4 sm:h-4 sm:w-4" />
           下载 TurboPush
           {autoDetect && detectedOS !== 'Unknown' && (
-            <Badge variant="secondary" className="ml-2 text-xs hidden sm:inline-flex">
+            <Badge
+              variant="secondary"
+              className="ml-2 text-xs hidden sm:inline-flex"
+            >
               {recommendedDownload.platform}
             </Badge>
           )}
@@ -250,8 +270,8 @@ export function DownloadButton({
       {showDropdown && (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               size={size}
               className="w-full sm:w-auto min-h-[48px] sm:min-h-[44px] text-base sm:text-sm font-medium px-6 sm:px-4 active:scale-95 transition-transform"
             >
@@ -265,8 +285,9 @@ export function DownloadButton({
             <DropdownMenuSeparator />
             {downloadOptions.map((option) => {
               const Icon = option.icon;
-              const isRecommended = autoDetect && option.platform === detectedOS;
-              
+              const isRecommended =
+                autoDetect && option.platform === detectedOS;
+
               return (
                 <DropdownMenuItem
                   key={option.platform}
@@ -277,7 +298,9 @@ export function DownloadButton({
                     <Icon className="h-5 w-5 sm:h-4 sm:w-4 text-gray-500" />
                     <div>
                       <div className="flex items-center space-x-2">
-                        <span className="font-medium text-base sm:text-sm">{option.platform}</span>
+                        <span className="font-medium text-base sm:text-sm">
+                          {option.platform}
+                        </span>
                         {isRecommended && (
                           <Badge variant="default" className="text-xs">
                             推荐
@@ -309,9 +332,9 @@ export function useDownloadStats() {
   const [stats, setStats] = useState<Record<string, number>>({});
 
   const trackDownload = (platform: string) => {
-    setStats(prev => ({
+    setStats((prev) => ({
       ...prev,
-      [platform]: (prev[platform] || 0) + 1
+      [platform]: (prev[platform] || 0) + 1,
     }));
   };
 
