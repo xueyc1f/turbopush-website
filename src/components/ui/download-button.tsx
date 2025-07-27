@@ -32,24 +32,38 @@ interface DownloadButtonProps {
 const downloadOptions: DownloadOption[] = [
   {
     platform: 'Windows',
-    version: 'v1.2.0',
-    size: '45.2 MB',
-    url: '/downloads/turbopush-windows-x64.exe',
+    version: 'latest',
+    size: '12.34 MB',
+    url: 'https://release.turbopush.top/latest/Turbo.Push_latest_x64-setup.exe',
     icon: Monitor,
     recommended: true,
   },
   {
-    platform: 'macOS',
-    version: 'v1.2.0',
-    size: '38.7 MB',
-    url: '/downloads/turbopush-macos-universal.dmg',
+    platform: 'MacOS (M系列芯片)',
+    version: 'latest',
+    size: '19.76 MB',
+    url: 'https://release.turbopush.top/latest/Turbo.Push_latest_aarch64.dmg',
     icon: Monitor,
   },
   {
-    platform: 'Linux',
-    version: 'v1.2.0',
-    size: '42.1 MB',
-    url: '/downloads/turbopush-linux-x64.AppImage',
+    platform: 'MacOS (Intel芯片)',
+    version: 'latest',
+    size: '20.41 MB',
+    url: 'https://release.turbopush.top/latest/Turbo.Push_latest_x64.dmg',
+    icon: Monitor,
+  },
+  {
+    platform: 'Linux (DEB包)',
+    version: 'latest',
+    size: '19.13 MB',
+    url: 'https://release.turbopush.top/latest/Turbo.Push_latest_amd64.deb',
+    icon: Monitor,
+  },
+  {
+    platform: 'Linux (AppImage)',
+    version: 'latest',
+    size: '106.06 MB',
+    url: 'https://release.turbopush.top/latest/Turbo.Push_latest_amd64.AppImage',
     icon: Monitor,
   },
 ];
@@ -63,9 +77,56 @@ function detectOperatingSystem(): string {
   if (userAgent.includes('Win') || platform.includes('Win')) {
     return 'Windows';
   } else if (userAgent.includes('Mac') || platform.includes('Mac')) {
-    return 'macOS';
+    // 更精确的 Mac 架构检测
+    try {
+      // 使用更可靠的方法检测 Apple Silicon
+      // 1. 检查 navigator.userAgentData (如果支持)
+      if ('userAgentData' in navigator && (navigator as any).userAgentData) {
+        const brands = (navigator as any).userAgentData.brands || [];
+        const platformInfo = (navigator as any).userAgentData.platform;
+        console.log('UserAgentData:', { brands, platform: platformInfo });
+      }
+      
+      // 2. 检查最大触控点数（M系列通常支持更多触控点）
+      const maxTouchPoints = navigator.maxTouchPoints || 0;
+      
+      // 3. 检查屏幕分辨率和像素比（M系列 Mac 通常有高像素比）
+      const pixelRatio = window.devicePixelRatio || 1;
+      const screenWidth = window.screen.width;
+      
+      console.log('Detection info:', { maxTouchPoints, pixelRatio, screenWidth });
+      
+      // M系列 Mac 的启发式检测
+      // MacIntel 在 Rosetta 模式下仍会显示，但可以通过其他特征判断
+      if (platform === 'MacIntel') {
+        // M系列芯片的一些特征：
+        // - 通常支持触控（maxTouchPoints > 0）
+        // - 高像素比显示器
+        // - 或者直接默认为 M系列（因为现在大部分新 Mac 都是 M系列）
+        
+        // 简单的启发式：如果是较新的高分辨率显示器，可能是 M系列
+        if (pixelRatio >= 2 && screenWidth >= 1400) {
+          return 'MacOS (M系列芯片)';
+        }
+        
+        // 默认推荐 M系列（因为现在是主流）
+        return 'MacOS (M系列芯片)';
+      }
+      
+      // 如果明确检测到 ARM，则是 M系列
+      if (platform.includes('ARM') || platform.includes('arm64')) {
+        return 'MacOS (M系列芯片)';
+      }
+      
+      // 默认情况
+      return 'MacOS (M系列芯片)';
+      
+    } catch (error) {
+      console.log('Detection error:', error);
+      return 'MacOS (M系列芯片)';
+    }
   } else if (userAgent.includes('Linux') || platform.includes('Linux')) {
-    return 'Linux';
+    return 'Linux (DEB包)';
   } else if (userAgent.includes('Android')) {
     return 'Android';
   } else if (userAgent.includes('iPhone') || userAgent.includes('iPad')) {
