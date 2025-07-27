@@ -34,7 +34,7 @@ const windowsSteps: InstallationStep[] = [
     details: [
       '点击上方的"下载 TurboPush"按钮',
       '选择 Windows 版本（.exe 文件）',
-      '等待下载完成（约 45MB）',
+      '等待下载完成',
       '确认文件完整性',
     ],
     icon: Download,
@@ -42,15 +42,14 @@ const windowsSteps: InstallationStep[] = [
   {
     step: 2,
     title: '运行安装程序',
-    description: '以管理员身份运行下载的安装文件',
+    description: '双击运行下载的安装文件',
     details: [
-      '右键点击下载的 .exe 文件',
-      '选择"以管理员身份运行"',
-      '在 UAC 提示中点击"是"',
+      '双击下载的 .exe 文件',
       '等待安装程序启动',
+      '按照安装向导进行操作',
+      '无需管理员权限即可安装',
     ],
     icon: Shield,
-    warning: '需要管理员权限来安装系统级组件',
   },
   {
     step: 3,
@@ -86,7 +85,7 @@ const macosSteps: InstallationStep[] = [
     details: [
       '点击上方的"下载 TurboPush"按钮',
       '选择 macOS 版本（.dmg 文件）',
-      '等待下载完成（约 39MB）',
+      '等待下载完成',
       '在下载文件夹中找到 DMG 文件',
     ],
     icon: Download,
@@ -122,60 +121,61 @@ const macosSteps: InstallationStep[] = [
     details: [
       '在 Applications 文件夹中找到 TurboPush',
       '双击启动应用程序',
-      '在安全提示中点击"打开"',
-      '完成首次设置向导',
+      '如遇到安全提示，请按以下方法解决：',
+      '详细解决方法请查看下方说明',
     ],
     icon: Play,
-    warning: 'macOS 可能会显示安全警告，请在系统偏好设置中允许运行',
+    warning: 'macOS 可能会显示安全警告，请按照下方详细步骤允许运行',
   },
 ];
 
 const linuxSteps: InstallationStep[] = [
   {
     step: 1,
-    title: '下载 AppImage',
-    description: '下载 TurboPush Linux 可执行文件',
+    title: '下载安装包',
+    description: '下载 TurboPush Linux 安装包',
     details: [
       '点击上方的"下载 TurboPush"按钮',
-      '选择 Linux 版本（.AppImage 文件）',
-      '等待下载完成（约 42MB）',
+      '选择 Linux DEB 包（推荐）或 AppImage',
+      '等待下载完成',
       '保存到合适的位置',
     ],
     icon: Download,
   },
   {
     step: 2,
-    title: '设置执行权限',
-    description: '为 AppImage 文件添加执行权限',
+    title: '安装 DEB 包（推荐方法）',
+    description: '使用包管理器安装 DEB 包',
     details: [
       '打开终端',
       '导航到下载文件的目录',
-      '运行: chmod +x TurboPush-*.AppImage',
-      '确认权限设置成功',
+      '运行: sudo dpkg -i turbo-push_*.deb',
+      '如有依赖问题，运行: sudo apt-get install -f',
     ],
     icon: Shield,
+    warning: '需要管理员权限进行系统级安装',
   },
   {
     step: 3,
-    title: '运行应用程序',
-    description: '直接运行 AppImage 文件',
+    title: '启动应用程序',
+    description: '从应用程序菜单或终端启动',
     details: [
-      '双击 AppImage 文件运行',
-      '或在终端中执行: ./TurboPush-*.AppImage',
-      '首次运行会提取必要文件',
-      '等待应用程序启动',
+      '在应用程序菜单中找到 TurboPush',
+      '或在终端中运行: turbopush',
+      '首次运行会进行初始化设置',
+      '完成应用程序配置',
     ],
     icon: Play,
   },
   {
     step: 4,
-    title: '创建桌面快捷方式',
-    description: '可选：创建桌面快捷方式',
+    title: 'AppImage 方式（备选）',
+    description: '如果无法使用 DEB 包，可使用 AppImage',
     details: [
-      '右键点击桌面',
-      '创建新的启动器/快捷方式',
-      '设置命令为 AppImage 文件路径',
-      '添加图标和名称',
+      '下载 AppImage 文件',
+      '运行: chmod +x TurboPush-*.AppImage',
+      '双击运行或执行: ./TurboPush-*.AppImage',
+      '可创建桌面快捷方式',
     ],
     icon: Settings,
   },
@@ -187,8 +187,19 @@ const troubleshootingTips = [
     solution: '在 Windows Defender 中添加例外，或临时禁用实时保护',
   },
   {
-    issue: 'macOS 显示"无法验证开发者"',
-    solution: '在系统偏好设置 > 安全性与隐私中点击"仍要打开"',
+    issue: 'macOS 方法一：系统偏好设置中允许（推荐）',
+    solution:
+      '点击"完成"关闭对话框 → 打开系统偏好设置 > 安全性与隐私 > 通用标签页 → 在底部会看到"已阻止使用 Turbo Push.app，因为来自身份不明的开发者" → 点击"仍要打开"按钮 → 再次确认打开应用',
+  },
+  {
+    issue: 'macOS 方法二：右键菜单打开',
+    solution:
+      '在 Finder 中找到 Turbo Push.app → 右键点击应用图标 → 选择"打开" → 在弹出的对话框中点击"打开"',
+  },
+  {
+    issue: 'macOS 方法三：使用终端命令（高级用户）',
+    solution:
+      '打开终端并运行：sudo xattr -rd com.apple.quarantine "/Applications/Turbo Push.app"',
   },
   {
     issue: 'Linux 下无法执行 AppImage',

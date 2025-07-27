@@ -25,7 +25,7 @@ export function ContactSection() {
         </div>
 
         {/* QR Code Images */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 max-w-6xl mx-auto">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
           {/* QR Code 1 */}
           <Card className="group transition-all duration-300 hover:shadow-lg hover:-translate-y-1 text-center">
             <CardContent className="p-6 sm:p-8">
@@ -41,10 +41,7 @@ export function ContactSection() {
               <Typography variant="h3" className="text-lg font-semibold mb-2">
                 公众号
               </Typography>
-              <Typography
-                variant="muted"
-                className="text-sm leading-relaxed"
-              >
+              <Typography variant="muted" className="text-sm leading-relaxed">
                 扫码关注公众号
               </Typography>
             </CardContent>
@@ -65,10 +62,7 @@ export function ContactSection() {
               <Typography variant="h3" className="text-lg font-semibold mb-2">
                 QQ交流群
               </Typography>
-              <Typography
-                variant="muted"
-                className="text-sm leading-relaxed"
-              >
+              <Typography variant="muted" className="text-sm leading-relaxed">
                 扫码加入QQ交流群
               </Typography>
             </CardContent>
@@ -89,10 +83,7 @@ export function ContactSection() {
               <Typography variant="h3" className="text-lg font-semibold mb-2">
                 WX交流群
               </Typography>
-              <Typography
-                variant="muted"
-                className="text-sm leading-relaxed"
-              >
+              <Typography variant="muted" className="text-sm leading-relaxed">
                 扫码加入WX交流群
               </Typography>
             </CardContent>
