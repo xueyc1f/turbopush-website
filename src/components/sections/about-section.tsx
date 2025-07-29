@@ -71,8 +71,8 @@ export function AboutSection() {
                 我们的愿景
               </Typography>
               <Typography variant="muted" className="leading-relaxed">
-                成为全球领先的内容分发平台，构建一个连接创作者与受众的智能生态系统，
-                推动数字内容产业的创新发展。
+                打造全网最好用的内容发布工具，为创作者提供安全、高效的创作体验，
+                无缝连接所有主流平台，实现内容一键同步。
               </Typography>
             </CardContent>
           </Card>

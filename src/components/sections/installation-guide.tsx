@@ -187,7 +187,7 @@ const troubleshootingTips = [
     solution: '在 Windows Defender 中添加例外，或临时禁用实时保护',
   },
   {
-    issue: 'macOS 方法一：系统偏好设置中允许（推荐）',
+    issue: 'macOS 方法一：系统偏好设置中允许（新版本系统已不适用）',
     solution:
       '点击"完成"关闭对话框 → 打开系统偏好设置 > 安全性与隐私 > 通用标签页 → 在底部会看到"已阻止使用 Turbo Push.app，因为来自身份不明的开发者" → 点击"仍要打开"按钮 → 再次确认打开应用',
   },
@@ -197,7 +197,7 @@ const troubleshootingTips = [
       '在 Finder 中找到 Turbo Push.app → 右键点击应用图标 → 选择"打开" → 在弹出的对话框中点击"打开"',
   },
   {
-    issue: 'macOS 方法三：使用终端命令（高级用户）',
+    issue: 'macOS 方法三：使用终端命令（推荐）',
     solution:
       '打开终端并运行：sudo xattr -rd com.apple.quarantine "/Applications/Turbo Push.app"',
   },
