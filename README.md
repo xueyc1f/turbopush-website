@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![TurboPush Logo](https://www.turbopush.top/logo.png)
+<img src="https://www.turbopush.top/logo.png" alt="TurboPush Logo" width="150" height="auto" />
 
 **一键发布工具TurboPush 先锋版震撼发布！**
 
