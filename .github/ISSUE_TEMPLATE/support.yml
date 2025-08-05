@@ -1,0 +1,29 @@
+name: 平台支持
+description: 没有您使用的平台，在此处提交平台支持
+title: "[平台支持]: "
+labels: ["support"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        对于热度较高的平台，我们将优先支持！
+  - type: input
+    id: platform-name
+    attributes:
+      label: 平台名称
+      description: 请输入要支持的平台名称。
+    validations:
+      required: true
+  - type: input
+    id: platform-addr
+    attributes:
+      label: 平台地址
+      description: 请输入要支持的平台地址。
+    validations:
+      required: true
+  - type: checkboxes
+    attributes:
+      label: 是否可以提供测试账号？
+      options:
+        - label: 如果可以请提供测试账号，将对我们很有帮助，若提供测试账号请发送邮件。
+          required: false

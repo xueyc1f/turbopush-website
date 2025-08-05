@@ -1,0 +1,23 @@
+name: 功能建议
+description: 对TurboPush提出一个功能建议
+title: "[功能建议]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢提出功能建议，我们将仔细考虑！
+  - type: textarea
+    id: related-problem
+    attributes:
+      label: 你的功能建议是否具有实际使用场景？
+      description: 清晰并简洁地描述你的需求，例如，在XX场景下，该功能可以解决什么问题。
+    validations:
+      required: false
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: 你有其他上下文或截图吗？
+      description: 在此处添加有关功能请求的任何其他上下文或截图。
+    validations:
+      required: false
