@@ -132,7 +132,7 @@ export function FAQStructuredData() {
         name: 'TurboPush 需要什么系统要求？',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'TurboPush 支持 Windows、macOS 和 Linux 系统。内容发布功能需要 Chrome 浏览器（版本 90 或更高）支持。',
+          text: 'TurboPush 支持 Windows、macOS 和 Linux 系统。内容发布功能需要 Chrome 或 Edge 浏览器（版本 90 或更高）支持。',
         },
       },
       {
@@ -244,7 +244,7 @@ export function HowToStructuredData() {
     supply: [
       {
         '@type': 'HowToSupply',
-        name: 'Chrome 浏览器',
+        name: 'Chrome 或 Edge 浏览器',
         requiredQuantity: '1',
       },
       {

@@ -253,7 +253,7 @@ export function InstallationGuide() {
             按照以下步骤在您的设备上安装 TurboPush，整个过程只需几分钟
           </Typography>
 
-          {/* Chrome Browser Requirement */}
+          {/* Browser Requirement */}
           <Card className="max-w-2xl mx-auto p-6 bg-blue-50 border-blue-200">
             <div className="flex items-start">
               <AlertCircle className="h-5 w-5 text-blue-600 mr-3 mt-1 flex-shrink-0" />
@@ -262,16 +262,20 @@ export function InstallationGuide() {
                   variant="h4"
                   className="text-blue-900 font-semibold mb-2"
                 >
-                  重要提示：Chrome 浏览器依赖
+                  重要提示：浏览器依赖
                 </Typography>
                 <Typography
                   variant="small"
                   className="text-blue-800 leading-relaxed"
                 >
-                  TurboPush 的内容发布功能依赖 Chrome
-                  浏览器内核。请确保您的系统已安装
-                  <strong className="font-medium"> Google Chrome 浏览器</strong>
-                  （版本 90 或更高）。 如果未安装，请先从{' '}
+                  TurboPush
+                  的内容发布功能依赖现代浏览器内核。请确保您的系统已安装
+                  <strong className="font-medium"> Google Chrome</strong> 或
+                  <strong className="font-medium">
+                    {' '}
+                    Microsoft Edge 浏览器
+                  </strong>
+                  （版本 90 或更高）。如果未安装，请从{' '}
                   <a
                     href="https://www.google.com/chrome/"
                     target="_blank"
@@ -279,6 +283,15 @@ export function InstallationGuide() {
                     className="underline hover:text-blue-900"
                   >
                     chrome.google.com
+                  </a>{' '}
+                  或{' '}
+                  <a
+                    href="https://www.microsoft.com/edge"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline hover:text-blue-900"
+                  >
+                    microsoft.com/edge
                   </a>{' '}
                   下载安装。
                 </Typography>

@@ -74,7 +74,7 @@ export function DownloadSection({ compact = false }: DownloadSectionProps) {
             />
           </div>
 
-          {/* Chrome Browser Requirement Notice */}
+          {/* Browser Requirement Notice */}
           <div className="max-w-2xl mx-auto mb-8 sm:mb-12">
             <div className="flex items-center justify-center p-4 bg-amber-50 border border-amber-200 rounded-lg">
               <div className="flex items-start">
@@ -96,11 +96,11 @@ export function DownloadSection({ compact = false }: DownloadSectionProps) {
                     variant="small"
                     className="text-amber-800 font-medium"
                   >
-                    需要 Chrome 浏览器：
+                    需要 Chrome 或 Edge 浏览器：
                   </Typography>
                   <Typography variant="small" className="text-amber-700 mt-1">
-                    内容发布功能需要 Chrome 浏览器支持，请确保已安装 Chrome 90+
-                    版本
+                    内容发布功能需要 Chrome 或 Edge 浏览器支持，请确保已安装
+                    Chrome/Edge 90+ 版本
                   </Typography>
                 </div>
               </div>

@@ -107,7 +107,7 @@ npm run start
 
 ### Windows 系统
 
-- 推荐使用 Chrome 浏览器下载
+- 推荐使用 Chrome 或 Edge 浏览器下载
 - 如使用 Edge 浏览器，请选择"保留"选项完成下载
 - 下载完成后直接安装即可
 
