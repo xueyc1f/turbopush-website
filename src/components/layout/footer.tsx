@@ -40,9 +40,21 @@ function Footer({ variant = 'default', className }: FooterProps) {
                 TurboPush
               </Typography>
             </div>
-            <Typography variant="muted" className="text-center sm:text-right">
-              © {currentYear} TurboPush. 保留所有权利。
-            </Typography>
+            <div className="text-center sm:text-right">
+              <Typography variant="muted">
+                © {currentYear} TurboPush. 保留所有权利。
+              </Typography>
+              <Typography variant="muted" className="text-xs mt-1">
+                <Link
+                  href="https://beian.miit.gov.cn/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-foreground transition-colors"
+                >
+                  京ICP备XXXXXXXX号
+                </Link>
+              </Typography>
+            </div>
           </div>
         </Container>
       </footer>
@@ -94,6 +106,17 @@ function Footer({ variant = 'default', className }: FooterProps) {
             <div className="pt-6 border-t border-border/50 w-full">
               <Typography variant="muted" className="text-sm">
                 © {currentYear} TurboPush. 保留所有权利。
+              </Typography>
+              <Typography variant="muted" className="text-xs mt-2">
+                ICP备案号：
+                <Link
+                  href="https://beian.miit.gov.cn/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-foreground transition-colors"
+                >
+                  蜀ICP备2025159691号
+                </Link>
               </Typography>
             </div>
           </div>

@@ -25,6 +25,11 @@ const navigationItems: NavigationItem[] = [
   { label: '下载', href: '#download' },
   { label: '关于', href: '#about' },
   { label: '联系', href: '#contact' },
+  {
+    label: '手册',
+    href: 'https://fcn02uha9bv6.feishu.cn/wiki/C3YDwRja9iEzw5kW5vicfkebnoe?from=from_copylink',
+    external: true,
+  },
 ];
 
 function Header({
