@@ -103,20 +103,42 @@ function Footer({ variant = 'default', className }: FooterProps) {
             </div>
 
             {/* Copyright */}
-            <div className="pt-6 border-t border-border/50 w-full">
+            <div className="pt-6 border-t border-border/50 w-full flex items-center gap-6 flex-wrap">
+              {/* 版权 */}
               <Typography variant="muted" className="text-sm">
                 © {currentYear} TurboPush. 保留所有权利。
               </Typography>
-              <Typography variant="muted" className="text-xs mt-2">
+
+              {/* ICP备案 */}
+              <Typography
+                variant="muted"
+                className="text-xs flex items-center gap-1"
+              >
                 ICP备案号：
-                <Link
+                <a
                   href="https://beian.miit.gov.cn/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-foreground transition-colors"
                 >
                   蜀ICP备2025159691号
-                </Link>
+                </a>
+              </Typography>
+
+              {/* 公安备案 */}
+              <Typography
+                variant="muted"
+                className="text-xs flex items-center gap-1"
+              >
+                <img src="/police.png" alt="公安备案" className="w-4 h-4" />
+                <a
+                  href="https://beian.mps.gov.cn/#/query/webSearch?code=51010702043662"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-foreground transition-colors"
+                >
+                  川公网安备51010702043662号
+                </a>
               </Typography>
             </div>
           </div>
