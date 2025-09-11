@@ -15,6 +15,12 @@
 
 </div>
 
+## 💬 群聊
+
+| QQ                       | WX                       |
+| ------------------------ | ------------------------ |
+| ![QQ](./public/tpqq.jpg) | ![WX](./public/tpwx.jpg) |
+
 ## 🚀 关于 TurboPush
 
 TurboPush 是一款基于 **Tauri + React** 构建的跨平台桌面应用，专为内容创作者打造的多平台内容管理解决方案。**先锋版完全免费**，支持 Mac、Windows、Linux 系统，安装包仅 20M 左右。
