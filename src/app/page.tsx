@@ -38,7 +38,7 @@ export default function Home() {
       <SoftwareReviewStructuredData />
       <HowToStructuredData />
 
-      <PageLayout>
+      <PageLayout footerProps={{ variant: 'minimal' }}>
         <HeroSection
           title="TurboPush"
           subtitle="多平台内容发布和管理工具，让您的内容创作更高效。一键发布到多个社交媒体平台，定时发布，数据分析，让您的内容营销事半功倍。"
